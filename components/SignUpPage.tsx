@@ -6,7 +6,7 @@ import { useQuery } from '@apollo/client';
 import { GET_ACCOUNT, INDIVIDUAL, OWN_ACCOUNT } from './queries';
 import axios from 'axios';
 
-// Call the function to add data with Auth UID as document ID wherever needed
+
 interface ScreenAProps {
   navigation: any;
 }
@@ -20,6 +20,9 @@ const SignUpPage: React.FC<ScreenAProps> = ({ navigation })=> {
     navigation.navigate('LoginPage');
   };
 
+  const goToHomePage = () => {
+    navigation.navigate('HomePage');
+  };
 
   const BASE_URL = 'https://api.opencollective.com/graphql/v2/6b6604a2c9e0ed5459af4e38f1473c630251de5b';
 
@@ -48,35 +51,7 @@ const SignUpPage: React.FC<ScreenAProps> = ({ navigation })=> {
     }
   };
 
-
-  // const body = {
-  //   variables:{
-  //     slug:slug
-  //   }
-  // }
-  // console.log(body)
-  // const { loading, error, data } = useQuery(GET_ACCOUNT,body);
-
   const handleSignUp = async () => {
-    // try {
-
-    //   // console.log('Slug', slug);
-    //   const user = await signUp(email, password);
-
-    //   // console.log('Slug2', slug);
-
-    //   const { account } = await data;
-    //   console.log('Name', account.name);
-    //   console.log('Id', account.id);
-    //   console.log('Slug', account.slug);
-
-
-    
-    // } catch (error) {
-    //   console.error('Error signing up:', error);
-    // }
-    // setError(null);
-    // setLoading(true);
 
     try {
       const user = await signUp(email, password);

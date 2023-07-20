@@ -14,13 +14,18 @@ const LoginPage:React.FC<Screen1Props> = ({ navigation }) => {
   const [password, getPassword] = useState('');
 
   const goToSignUpPage = () => {
-    navigation.navigate('ScreenB');
+    navigation.navigate('SignUpPage');
+  };
+
+  const goToHomePage = () => {
+    navigation.navigate('HomePage');
   };
 
   const handleLogin = async () => {
     try {
       const user = await login(email, password);
       console.log('Logged in successfully!', user);
+      goToHomePage
     } catch (error) {
       console.error('Error logging in:', "error.message");
     }
@@ -52,7 +57,7 @@ const LoginPage:React.FC<Screen1Props> = ({ navigation }) => {
         onChangeText={(text) => getPassword(text)}
         secureTextEntry
       />
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+      <TouchableOpacity style={styles.button} onPress={goToHomePage}>
       <Text style={styles.buttonText}>Continue</Text>
       </TouchableOpacity>
       <View style={styles.footer}>

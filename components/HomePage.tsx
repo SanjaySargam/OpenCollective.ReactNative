@@ -9,7 +9,7 @@ import App from '../App';
 const Tab = createBottomTabNavigator();
 
 
-export default function HomePage() {
+const HomePage =()=> {
   return (
     <NavigationContainer>
     <Tab.Navigator>
@@ -20,3 +20,5 @@ export default function HomePage() {
   </NavigationContainer>
   )
 }
+
+export default HomePage
