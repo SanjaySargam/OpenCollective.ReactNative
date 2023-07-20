@@ -1,0 +1,39 @@
+{
+    "project_info": {
+      "project_number": "806939464632",
+      "project_id": "opencollective-8277f",
+      "storage_bucket": "opencollective-8277f.appspot.com"
+    },
+    "client": [
+      {
+        "client_info": {
+          "mobilesdk_app_id": "1:806939464632:android:9979032f116c02becf754d",
+          "android_client_info": {
+            "package_name": "com.opencollectiveandroid"
+          }
+        },
+        "oauth_client": [
+          {
+            "client_id": "806939464632-s99eat2k4flaia2vcufjv449lo7c7ssk.apps.googleusercontent.com",
+            "client_type": 3
+          }
+        ],
+        "api_key": [
+          {
+            "current_key": "AIzaSyCvuHnyL2agaM5Q0gYb_qwfaDOm1r8cAkI"
+          }
+        ],
+        "services": {
+          "appinvite_service": {
+            "other_platform_oauth_client": [
+              {
+                "client_id": "806939464632-s99eat2k4flaia2vcufjv449lo7c7ssk.apps.googleusercontent.com",
+                "client_type": 3
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "configuration_version": "1"
+  }
