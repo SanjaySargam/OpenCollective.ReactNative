@@ -131,6 +131,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 20,
     paddingHorizontal: 10,
+    color:'black'
   },
   footer: {
     flexDirection: 'column',
