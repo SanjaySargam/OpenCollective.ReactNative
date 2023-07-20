@@ -57,7 +57,7 @@ const LoginPage:React.FC<Screen1Props> = ({ navigation }) => {
         onChangeText={(text) => getPassword(text)}
         secureTextEntry
       />
-      <TouchableOpacity style={styles.button} onPress={goToHomePage}>
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
       <Text style={styles.buttonText}>Continue</Text>
       </TouchableOpacity>
       <View style={styles.footer}>

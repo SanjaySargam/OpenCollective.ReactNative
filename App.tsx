@@ -1,5 +1,5 @@
 import { View, Text, SafeAreaView, ScrollView } from 'react-native'
-import React, {useEffect} from 'react'
+import React, {useEffect,useState} from 'react'
 import { AppRegistry } from 'react-native';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import SignUpPage from './components/SignUpPage';
@@ -12,6 +12,7 @@ import TransactionScreen from './components/TransactionScreen';
 import ExpenseScreen from './components/ExpenseScreen';
 import ProfileScreen from './components/ProfileScreen';
 import { getCurrentUser } from './components/authService';
+import auth from '@react-native-firebase/auth'; // Add this line to import the 'auth' object
 
 
 // Initialize Apollo Client
@@ -26,7 +27,19 @@ const Stack = createStackNavigator();
 
 
 const App: React.FC = () => {
-  const isLoggedIn = true; // Example: Set to true if the user is logged in
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  useEffect(() => {
+    // Check if the user is already logged in
+    const unsubscribe = auth().onAuthStateChanged((user) => {
+      if (user) {
+        // User is logged in, update isLoggedIn state to true
+        setIsLoggedIn(true);
+      }
+    });
+
+    // Clean up the listener when the component unmounts
+    return () => unsubscribe();
+  }, []);
 
   return (
     <ApolloProvider client={client}>
@@ -38,9 +51,9 @@ const App: React.FC = () => {
             <Tab.Screen name='Profile' component={ProfileScreen} />
           </Tab.Navigator>
         ) : (
-          <Stack.Navigator initialRouteName='Login'>
-            <Stack.Screen name='SignUp' component={SignUpPage} />
-            <Stack.Screen name='Login' component={LoginPage} />
+          <Stack.Navigator initialRouteName='LoginPage'>
+            <Stack.Screen name='SignUpPage' component={SignUpPage} />
+            <Stack.Screen name='LoginPage' component={LoginPage} />
             {/* Other screens and configurations */}
           </Stack.Navigator>
         )}
