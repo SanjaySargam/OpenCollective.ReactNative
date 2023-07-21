@@ -43,21 +43,18 @@ const App: React.FC = () => {
 
   return (
     <ApolloProvider client={client}>
-      <NavigationContainer>
         {isLoggedIn ? (
-          <Tab.Navigator>
-            <Tab.Screen name='Transactions' component={TransactionScreen} />
-            <Tab.Screen name='Expenses' component={ExpenseScreen} />
-            <Tab.Screen name='Profile' component={ProfileScreen} />
-          </Tab.Navigator>
+          <HomePage/>
         ) : (
+          <NavigationContainer>
           <Stack.Navigator initialRouteName='LoginPage'>
             <Stack.Screen name='SignUpPage' component={SignUpPage} />
             <Stack.Screen name='LoginPage' component={LoginPage} />
+            <Stack.Screen name='HomePage' component={HomePage} />
             {/* Other screens and configurations */}
           </Stack.Navigator>
+          </NavigationContainer>
         )}
-      </NavigationContainer>
     </ApolloProvider>
   );
 }
