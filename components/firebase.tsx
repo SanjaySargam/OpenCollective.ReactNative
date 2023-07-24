@@ -2,7 +2,7 @@ import firebase from '@react-native-firebase/app';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
-export const addUserDataWithAuthUid = async (email: string, name: string,id:string,slug:string) => {
+export const addUserDataWithAuthUid = async (email: string, name: string,id:string,slug:string,imageUrl:string,backgroundImageUrl:string,currency:string,description:string,longDescription:string,repositoryUrl:string) => {
   try {
     // Get the current authenticated user
     const currentUser = auth().currentUser;
@@ -16,10 +16,16 @@ export const addUserDataWithAuthUid = async (email: string, name: string,id:stri
 
       // Add data to the document
       await documentRef.set({
-        NAME: name,
-        EMAIL: email,
-        SLUG: slug,
-        ID:id,
+        name: name,
+        email: email,
+        slug: slug,
+        id:id,
+        imageUrl: imageUrl,
+        backgroundImageUrl: backgroundImageUrl,
+        currency:currency,
+        description:description,
+        longDescription:longDescription,
+        repositoryUrl:repositoryUrl
       });
 
       console.log('Data added to Firestore with Auth UID as document ID successfully!');

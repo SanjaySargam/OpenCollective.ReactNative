@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 import { signUp, login, logout, getCurrentUser } from './authService';
 import { addUserDataWithAuthUid } from './firebase'
 import { useQuery } from '@apollo/client';
-import { GET_ACCOUNT, INDIVIDUAL, OWN_ACCOUNT } from './queries';
+import { GET_ACCOUNT, OWN_ACCOUNT } from './queries';
 import axios from 'axios';
-
+import {fetchAccountData} from './fetchAPI'
 
 interface ScreenAProps {
   navigation: any;
@@ -24,43 +24,43 @@ const SignUpPage: React.FC<ScreenAProps> = ({ navigation })=> {
     navigation.navigate('HomePage');
   };
 
-  const BASE_URL = 'https://api.opencollective.com/graphql/v2/6b6604a2c9e0ed5459af4e38f1473c630251de5b';
+  // const BASE_URL = 'https://api.opencollective.com/graphql/v2/6b6604a2c9e0ed5459af4e38f1473c630251de5b';
 
-  const fetchAccountData = async () => {
-    try {
-      const response = await axios.post(BASE_URL, {
-        query: `
-        query GetAccount($slug: String!) {
-          account(slug: $slug) {
-            id
-            name
-            slug
-          }
-        }
-      `,
-        variables: { slug },
-      });
+  // const fetchAccountData = async () => {
+  //   try {
+  //     const response = await axios.post(BASE_URL, {
+  //       query: `
+  //       query GetAccount($slug: String!) {
+  //         account(slug: $slug) {
+  //           id
+  //           name
+  //           slug
+  //         }
+  //       }
+  //     `,
+  //       variables: { slug },
+  //     });
 
-      if (response.data && response.data.data) {
-        return response.data.data.account;
-      } else {
-        throw new Error('No data received.');
-      }
-    } catch (error) {
-      throw new Error('Error fetching account data: ' + error);
-    }
-  };
+  //     if (response.data && response.data.data) {
+  //       return response.data.data.account;
+  //     } else {
+  //       throw new Error('No data received.');
+  //     }
+  //   } catch (error) {
+  //     throw new Error('Error fetching account data: ' + error);
+  //   }
+  // };
 
   const handleSignUp = async () => {
 
     try {
       const user = await signUp(email, password);
-      const account = await fetchAccountData();
+      const account = await fetchAccountData(slug);
       // setAccountData(account);
       console.log('Name', account.name);
       console.log('Id', account.id);
       console.log('Slug', account.slug);
-      addUserDataWithAuthUid(email,account.name,account.id,account.slug)
+      addUserDataWithAuthUid(email,account.name,account.id,account.slug,account.imageUrl,account.backgroundImageUrl,account.currency,account.description,account.longDescription,account.repositoryUrl)
       console.log('Signed up successfully!');
     } catch (error) {
       // setError(error.message);
