@@ -1,11 +1,17 @@
 import { gql } from '@apollo/client';
 
-export const GET_ACCOUNT = gql`
+export const GET_ACCOUNT = `
   query GetAccount($slug: String) {
     account(slug: $slug) {
       id
       name
       slug
+      imageUrl
+      backgroundImageUrl
+      currency
+      description
+      longDescription
+      repositoryUrl
     }
   }
 `;
