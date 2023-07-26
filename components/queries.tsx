@@ -70,7 +70,7 @@ query account($slug: String) {
 }
 `;
 
-export const TRANSACTION = gql`
+export const TRANSACTIONS = `
 query account($slug: String) {
   account(slug: $slug) {
     name
@@ -93,7 +93,7 @@ query account($slug: String) {
   }
 }`;
 
-export const EXPENSES = gql`
+export const EXPENSES = `
 query account($slug: String) {
   account(slug: $slug) {
     name
