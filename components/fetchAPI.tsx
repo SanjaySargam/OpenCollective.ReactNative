@@ -1,10 +1,15 @@
 import axios from "axios";
 import {GET_ACCOUNT,TRANSACTIONS,EXPENSES} from './queries'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getSlug } from "./AsyncStorage";
+import {} from './ExpenseScreen'
 
 const BASE_URL = 'https://api.opencollective.com/graphql/v2/6b6604a2c9e0ed5459af4e38f1473c630251de5b'
 
-export const fetchAccountData = async (slug:string) => {
+export const fetchAccountData = async () => {
     try {
+      const slug = await getSlug()
+      console.log("SANJAYD ",slug)
       const response = await axios.post(BASE_URL, {
         query: GET_ACCOUNT,
         variables: { slug },
@@ -20,8 +25,10 @@ export const fetchAccountData = async (slug:string) => {
     }
   };
 
-  export const fetchTransactions = async (slug:string) => {
+  export const fetchTransactions = async () => {
     try {
+      const slug = await getSlug()
+      console.log("SANJAYD ",slug)
       const response = await axios.post(BASE_URL, {
         query: TRANSACTIONS,
         variables: { slug },
@@ -37,8 +44,10 @@ export const fetchAccountData = async (slug:string) => {
     }
   };
 
-  export const fetchExpenses = async (slug:string) => {
+  export const fetchExpenses = async () => {
     try {
+      const slug = await getSlug()
+      console.log("SANJAYD ",slug)
       const response = await axios.post(BASE_URL, {
         query: EXPENSES,
         variables: { slug },
