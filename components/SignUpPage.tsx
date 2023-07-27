@@ -6,7 +6,7 @@ import { useQuery } from '@apollo/client';
 import { GET_ACCOUNT, OWN_ACCOUNT } from './queries';
 import axios from 'axios';
 import {fetchAccountData} from './fetchAPI'
-
+import {storeSlug} from './AsyncStorage'
 interface ScreenAProps {
   navigation: any;
 }
@@ -28,8 +28,9 @@ const SignUpPage: React.FC<ScreenAProps> = ({ navigation })=> {
 
     try {
       const user = await signUp(email, password);
-      const account = await fetchAccountData(slug);
+      const account = await fetchAccountData();
       // setAccountData(account);
+      storeSlug(account.slug)
       console.log('Name', account.name);
       console.log('Id', account.id);
       console.log('Slug', account.slug);

@@ -3,6 +3,8 @@ import { View, Text, Image, TextInput, Button, StyleSheet, TouchableOpacity } fr
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { signUp, login, logout, getCurrentUser } from './authService';
+import {getSlug} from './firebaseQueries'
+import {storeSlug} from './AsyncStorage'
 
 type Screen1Props = {
   navigation: any; // You can use the specific type from @react-navigation/native if available
@@ -24,7 +26,9 @@ const LoginPage:React.FC<Screen1Props> = ({ navigation }) => {
   const handleLogin = async () => {
     try {
       const user = await login(email, password);
-      console.log('Logged in successfully!', user);
+      const slug = await getSlug(user.uid)
+      storeSlug(slug as string)
+      console.log('Logged in successfully!', slug);
       goToHomePage
     } catch (error) {
       console.error('Error logging in:', "error.message");
