@@ -13,6 +13,7 @@ export const getSlug = async () => {
       const savedUser = await AsyncStorage.getItem("slug");
       const slug = JSON.parse(savedUser as string);
       console.log("Slug",slug);
+      return slug as string
     } catch (error) {
       console.log(error);
     }
