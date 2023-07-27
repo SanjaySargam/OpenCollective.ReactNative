@@ -75,7 +75,7 @@ query account($slug: String) {
   account(slug: $slug) {
     name
     slug
-    transactions(limit: 10, type: CREDIT) {
+    transactions(limit: 2, type: CREDIT) {
       totalCount
       nodes {
         type
@@ -98,7 +98,7 @@ query account($slug: String) {
   account(slug: $slug) {
     name
     slug
-    transactions(limit: 10, type: DEBIT) {
+    transactions(limit: 2, type: DEBIT) {
       totalCount
       nodes {
         type

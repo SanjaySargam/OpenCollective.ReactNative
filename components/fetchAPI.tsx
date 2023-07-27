@@ -6,6 +6,31 @@ import {} from './ExpenseScreen'
 
 const BASE_URL = 'https://api.opencollective.com/graphql/v2/6b6604a2c9e0ed5459af4e38f1473c630251de5b'
 
+export interface ApiResponse {
+  data: {
+    account: {
+      name: string;
+      slug: string;
+      transactions: {
+        totalCount: number;
+        nodes: Transaction[];
+      };
+    };
+  };
+}
+export interface Transaction {
+  type: string;
+  fromAccount: {
+    name: string;
+    slug: string;
+  };
+  amount: {
+    value: number;
+    currency: string;
+  };
+  createdAt: string;
+}
+
 export const fetchAccountData = async () => {
     try {
       const slug = await getSlug()
