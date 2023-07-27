@@ -1,5 +1,5 @@
 import auth from '@react-native-firebase/auth';
-
+import {deleteSlug} from './AsyncStorage'
 // Sign up function
 export const signUp = async (email: string, password: string) => {
   try {
@@ -23,6 +23,7 @@ export const login = async (email: string, password: string) => {
 // Logout function
 export const logout = async () => {
   try {
+    deleteSlug('slug')
     await auth().signOut();
   } catch (error) {
     throw error;

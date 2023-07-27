@@ -18,3 +18,13 @@ export const getSlug = async () => {
       console.log(error);
     }
 };
+
+export const deleteSlug = async (key: string) => {
+  try {
+    await AsyncStorage.removeItem(key);
+    console.log('Slug deleted successfully!');
+  } catch (error) {
+    console.log('Slug deleting data:', error);
+  }
+};
+
