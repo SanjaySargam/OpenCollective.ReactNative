@@ -27,7 +27,7 @@ const LoginPage:React.FC<Screen1Props> = ({ navigation }) => {
     try {
       const user = await login(email, password);
       const slug = await getSlug(user.uid)
-      storeSlug(slug as string)
+      await storeSlug(slug as string)
       console.log('Logged in successfully!', slug);
       goToHomePage
     } catch (error) {
