@@ -1,31 +1,6 @@
 import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
 import React, { useEffect,useState } from 'react'
-import {fetchExpenses} from './fetchAPI'
-
-export interface ApiResponse {
-  data: {
-    account: {
-      name: string;
-      slug: string;
-      transactions: {
-        totalCount: number;
-        nodes: Transaction[];
-      };
-    };
-  };
-}
-export interface Transaction {
-  type: string;
-  fromAccount: {
-    name: string;
-    slug: string;
-  };
-  amount: {
-    value: number;
-    currency: string;
-  };
-  createdAt: string;
-}
+import {fetchExpenses,ApiResponse,Transaction} from './fetchAPI'
 
 
 const ExpenseScreen = () => {
