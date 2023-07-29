@@ -1,12 +1,13 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableOpacity,ActivityIndicator } from 'react-native'
 import React from 'react'
 import {useState,useEffect} from 'react'
 import { logout } from './authService';
 import { fetchAccountData} from './fetchAPI';
 
 const ProfileScreen:React.FC = () => {
-
+  const [loading, setLoading] = useState(true);
   const [accountData, setAccountData] = useState<any | null>(null);
+  const [error, setError] = useState('');
 
       useEffect(() => {
         fetchAccountData()
@@ -14,9 +15,11 @@ const ProfileScreen:React.FC = () => {
           // Process the fetched account data as needed
           setAccountData(account)
           console.log('Fetched account data:', account);
+          setLoading(false);
         })
         .catch((error) => {
-          console.error('Error fetching account data:', error);
+          setError('Error fetching account data: ' + "error.message");
+          setLoading(false);
         });
       },[])
          
@@ -30,7 +33,21 @@ const ProfileScreen:React.FC = () => {
       console.error('Error logging out:', error);
     }
   };
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" color="#000" />
+      </View>
+    );
+  }
 
+  if (error) {
+    return (
+      <View style={styles.container}>
+        <Text>Error: {error}</Text>
+      </View>
+    );
+  }
   
 
   return (
