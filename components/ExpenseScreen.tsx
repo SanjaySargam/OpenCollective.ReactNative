@@ -1,6 +1,7 @@
 import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
 import React, { useEffect,useState } from 'react'
 import {fetchExpenses,ApiResponse,Transaction} from './fetchAPI'
+import TransactionCard from './TransactionCard';
 
 
 const ExpenseScreen = () => {
@@ -44,17 +45,8 @@ const ExpenseScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text>Name: {name}</Text>
-      <Text>Total Transactions: {transactions.length}</Text>
-      <Text>Transactions:</Text>
       {transactions.map((transaction, index) => (
-        <View key={index}>
-          <Text>Type: {transaction.type}</Text>
-          <Text>From Account: {transaction.fromAccount.name}</Text>
-          <Text>Amount: {transaction.amount.value}</Text>
-          <Text>Currency: {transaction.amount.currency}</Text>
-          <Text>Created At: {transaction.createdAt}</Text>
-        </View>
+        <TransactionCard key={index} {...transaction}/>
       ))}
     </View>
   );
@@ -63,9 +55,9 @@ const ExpenseScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    padding: 16,
   },
 });
+
 
 export default ExpenseScreen

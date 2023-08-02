@@ -81,13 +81,17 @@ query account($slug: String) {
         type
         fromAccount {
           name
+          imageUrl
+        }
+        toAccount{
           slug
         }
         amount {
           value
           currency
         }
-        createdAt
+        updatedAt
+        description
       }
     }
   }
@@ -104,13 +108,17 @@ query account($slug: String) {
         type
         fromAccount {
           name
+          imageUrl
+        }
+        toAccount{
           slug
         }
         amount {
           value
           currency
         }
-        createdAt
+        updatedAt
+        description
       }
     }
   }

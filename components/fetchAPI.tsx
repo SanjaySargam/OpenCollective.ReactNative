@@ -23,12 +23,17 @@ export interface Transaction {
   fromAccount: {
     name: string;
     slug: string;
+    imageUrl: string;
+  };
+  toAccount: {
+    slug:string
   };
   amount: {
     value: number;
     currency: string;
   };
-  createdAt: string;
+  updatedAt: string;
+  description: string;
 }
 
 export const fetchAccountData = async () => {
