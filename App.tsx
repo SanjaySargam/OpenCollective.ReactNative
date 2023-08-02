@@ -48,8 +48,8 @@ const App: React.FC = () => {
         ) : (
           <NavigationContainer>
           <Stack.Navigator initialRouteName='LoginPage'>
-            <Stack.Screen name='SignUpPage' component={SignUpPage} />
-            <Stack.Screen name='LoginPage' component={LoginPage} />
+            <Stack.Screen name='SignUpPage' component={SignUpPage} options={{headerShown:false}} />
+            <Stack.Screen name='LoginPage' component={LoginPage} options={{headerShown:false}}/>
             {/* Other screens and configurations */}
           </Stack.Navigator>
           </NavigationContainer>
