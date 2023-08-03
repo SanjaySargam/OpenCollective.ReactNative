@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getSlug } from "./AsyncStorage";
 import {} from './ExpenseScreen'
 
-const BASE_URL = 'https://api.opencollective.com/graphql/v2/6b6604a2c9e0ed5459af4e38f1473c630251de5b'
+const BASE_URL = 'https://api.opencollective.com/graphql/v2'
 
 export interface ApiResponse {
   data: {
