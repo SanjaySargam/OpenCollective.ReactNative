@@ -3,10 +3,10 @@ import { View, Text, Image, StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Transaction } from './fetchAPI';
 
-export const colors = {
-  heading: 'text-gray-700',
-  button: '#50C878'
-}
+// export const colors = {
+//   heading: 'text-gray-700',
+//   button: '#50C878'
+// }
 export const categoryBG = {
   food: '#E1D3EE',
   commute: '#B0E3D3',
@@ -75,7 +75,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 5,
-    color: colors.heading, 
   },
   subtitle: {
     fontSize: 14,

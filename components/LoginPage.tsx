@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { signUp, login, logout, getCurrentUser } from './authService';
 import {getSlug} from './firebaseQueries'
 import {storeSlug} from './AsyncStorage'
+import { AuthContext } from './context';
 
 type Screen1Props = {
   navigation: any; // You can use the specific type from @react-navigation/native if available
@@ -14,6 +15,8 @@ type Screen1Props = {
 const LoginPage:React.FC<Screen1Props> = ({ navigation }) => {
   const [email, getEmail] = useState('');
   const [password, getPassword] = useState('');
+
+  const {signIn} = React.useContext(AuthContext);
 
   const goToSignUpPage = () => {
     navigation.navigate('SignUpPage');
@@ -29,7 +32,7 @@ const LoginPage:React.FC<Screen1Props> = ({ navigation }) => {
       const slug = await getSlug(user.uid)
       await storeSlug(slug as string)
       console.log('Logged in successfully!', slug);
-      goToHomePage
+      signIn()
     } catch (error) {
       console.error('Error logging in:', "error.message");
     }

@@ -3,11 +3,13 @@ import React from 'react'
 import {useState,useEffect} from 'react'
 import { logout } from './authService';
 import { fetchAccountData} from './fetchAPI';
+import {AuthContext} from './context'
 
 const ProfileScreen:React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [accountData, setAccountData] = useState<any | null>(null);
   const [error, setError] = useState('');
+  const { signOut, toggleTheme } = React.useContext(AuthContext);
 
       useEffect(() => {
         fetchAccountData()
@@ -23,16 +25,6 @@ const ProfileScreen:React.FC = () => {
         });
       },[])
          
-  const handleLogout = async () => {
-    try {
-      await logout();
-      // Perform any additional actions after logout if needed
-      console.log('Logged out successfully!');
-      // goToLoginPage
-    } catch (error) {
-      console.error('Error logging out:', error);
-    }
-  };
   if (loading) {
     return (
       <View style={styles.container}>
@@ -55,7 +47,7 @@ const ProfileScreen:React.FC = () => {
       {accountData ? (
         <View style={styles.container}>
         <Image source={{ uri: accountData.imageUrl }} style={styles.profilePicture} />
-        <Text style={styles.username} onPress={handleLogout}>{accountData.name}</Text>
+        <Text style={styles.username} onPress={() => {signOut()}}>{accountData.name}</Text>
         <Text style={styles.email}>sargamsanjaykumar@gmail.com</Text>
         <TouchableOpacity
           onPress={() => {

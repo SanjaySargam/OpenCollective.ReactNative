@@ -13,7 +13,8 @@ import ExpenseScreen from './components/ExpenseScreen';
 import ProfileScreen from './components/ProfileScreen';
 import { getCurrentUser } from './components/authService';
 import auth from '@react-native-firebase/auth'; // Add this line to import the 'auth' object
-
+import {logout} from './components/authService';
+import { AuthContext } from './components/context';
 
 // Initialize Apollo Client
 const client = new ApolloClient({
@@ -27,7 +28,64 @@ const Stack = createStackNavigator();
 
 
 const App: React.FC = () => {
+  // const loginReducer = (prevState:any, action:any) => {
+  //   switch( action.type ) {
+  //     case 'RETRIEVE_TOKEN': 
+  //       return {
+  //         ...prevState,
+  //         userToken: action.token,
+  //         isLoading: false,
+  //       };
+  //     case 'LOGIN': 
+  //       return {
+  //         ...prevState,
+  //         userName: action.id,
+  //         userToken: action.token,
+  //         isLoading: false,
+  //       };
+  //     case 'LOGOUT': 
+  //       return {
+  //         ...prevState,
+  //         userName: null,
+  //         userToken: null,
+  //         isLoading: false,
+  //       };
+  //     case 'REGISTER': 
+  //       return {
+  //         ...prevState,
+  //         userName: action.id,
+  //         userToken: action.token,
+  //         isLoading: false,
+  //       };
+  //   }
+  // };
+  // const initialLoginState = {
+  //   isLoading: true,
+  //   userName: null,
+  //   userToken: null,
+  // };
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userToken,setUserToken] = useState('');
+  // const [loginState, dispatch] = React.useReducer(loginReducer, initialLoginState);
+  const authContext = React.useMemo(() =>({
+    signIn: async() => {
+      setUserToken('dfs');
+    },
+    signOut: async() => {
+      setUserToken('');
+      try {
+        await logout();
+        setIsLoggedIn(false);
+        // dispatch({ type: 'LOGOUT' });
+        // Perform any additional actions after logout if needed
+        console.log('Logged out successfully!');
+        // goToLoginPage
+      } catch (error) {
+        console.error('Error logging out:', error);
+      }
+      
+    },
+  }),[]);
   useEffect(() => {
     // Check if the user is already logged in
     const unsubscribe = auth().onAuthStateChanged((user) => {
@@ -40,20 +98,22 @@ const App: React.FC = () => {
     // Clean up the listener when the component unmounts
     return () => unsubscribe();
   }, []);
-
+  
   return (
     <ApolloProvider client={client}>
-        {isLoggedIn ? (
-          <HomePage/>
-        ) : (
-          <NavigationContainer>
+      <AuthContext.Provider value={authContext}>
+      <NavigationContainer>
+        {userToken ==='' ? (
           <Stack.Navigator initialRouteName='LoginPage'>
-            <Stack.Screen name='SignUpPage' component={SignUpPage} options={{headerShown:false}} />
-            <Stack.Screen name='LoginPage' component={LoginPage} options={{headerShown:false}}/>
-            {/* Other screens and configurations */}
-          </Stack.Navigator>
-          </NavigationContainer>
+          <Stack.Screen name='SignUpPage' component={SignUpPage} options={{headerShown:false}} />
+          <Stack.Screen name='LoginPage' component={LoginPage} options={{headerShown:false}}/>
+          {/* Other screens and configurations */}
+        </Stack.Navigator>
+        ) : (
+          <HomePage/>
         )}
+         </NavigationContainer>
+         </AuthContext.Provider>
     </ApolloProvider>
   );
 }
