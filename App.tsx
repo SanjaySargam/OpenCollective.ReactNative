@@ -92,6 +92,7 @@ const App: React.FC = () => {
       if (user) {
         // User is logged in, update isLoggedIn state to true
         setIsLoggedIn(true);
+        setUserToken('slug');
       }
     });
 
