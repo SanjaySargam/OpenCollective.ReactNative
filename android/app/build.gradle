@@ -111,6 +111,7 @@ android {
 
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
+    implementation "com.facebook.react:react-native:0.58.3"
     implementation("com.facebook.react:react-android")
     implementation platform('com.google.firebase:firebase-bom:32.2.0')
     implementation 'com.google.firebase:firebase-analytics'
