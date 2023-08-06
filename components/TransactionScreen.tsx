@@ -3,6 +3,9 @@ import React from 'react'
 import {useState,useEffect} from 'react'
 import {fetchTransactions,ApiResponse,Transaction} from './fetchAPI'
 import TransactionCard from './TransactionCard';
+import {storeSlug} from './AsyncStorage'
+import auth from '@react-native-firebase/auth'
+import {getSlug} from './firebaseQueries'
 
 const TransactionScreen = () => {
   const [expensesData, setExpensesData] = useState<any | null>(null);
@@ -15,6 +18,9 @@ const TransactionScreen = () => {
   useEffect(() => {
     const fetchAccountData = async () => {
       try {
+        const currentUser = auth().currentUser;
+        const slug = await getSlug(currentUser?.uid as string)
+        await storeSlug(slug as string)
         const accountData = await fetchTransactions();
         setName(accountData.name);
         setTransactions(accountData.transactions.nodes);

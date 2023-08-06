@@ -29,9 +29,9 @@ const LoginPage:React.FC<Screen1Props> = ({ navigation }) => {
   const handleLogin = async () => {
     try {
       const user = await login(email, password);
-      const slug = await getSlug(user.uid)
-      await storeSlug(slug as string)
-      console.log('Logged in successfully!', slug);
+      // const slug = await getSlug(user.uid)
+      // await storeSlug(slug as string)
+      console.log('Logged in successfully!', email);
       signIn()
     } catch (error) {
       console.error('Error logging in:', "error.message");
