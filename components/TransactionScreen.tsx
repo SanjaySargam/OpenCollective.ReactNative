@@ -6,8 +6,9 @@ import TransactionCard from './TransactionCard';
 import {storeSlug} from './AsyncStorage'
 import auth from '@react-native-firebase/auth'
 import {getSlug} from './firebaseQueries'
+import Card from './Card';
 
-const TransactionScreen = () => {
+const TransactionScreen: React.FC = () => {
   const [expensesData, setExpensesData] = useState<any | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -52,7 +53,7 @@ const TransactionScreen = () => {
   return (
     <View style={styles.container}>
       {transactions.map((transaction, index) => (
-        <TransactionCard key={index} {...transaction} />
+        <Card key={index} {...transaction} />
       ))}
     </View>
   );
@@ -60,8 +61,7 @@ const TransactionScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 16,
+    margin:10
   },
 });
 

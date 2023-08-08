@@ -2,9 +2,10 @@ import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
 import React, { useEffect,useState } from 'react'
 import {fetchExpenses,ApiResponse,Transaction} from './fetchAPI'
 import TransactionCard from './TransactionCard';
+import Card from './Card';
 
 
-const ExpenseScreen = () => {
+const ExpenseScreen:React.FC = () => {
   const [expensesData, setExpensesData] = useState<any | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -46,7 +47,7 @@ const ExpenseScreen = () => {
   return (
     <View style={styles.container}>
       {transactions.map((transaction, index) => (
-        <TransactionCard key={index} {...transaction}/>
+        <Card key={index} {...transaction}/>
       ))}
     </View>
   );
