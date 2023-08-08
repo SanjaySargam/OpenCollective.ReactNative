@@ -38,7 +38,7 @@ export interface Transaction {
 
 export const fetchAccountData = async () => {
     try {
-      const slug = await getSlug()
+      const slug = 'ankidroid'
       console.log("SANJAYD ",slug)
       const response = await axios.post(BASE_URL, {
         query: GET_ACCOUNT,
@@ -57,7 +57,7 @@ export const fetchAccountData = async () => {
 
   export const fetchTransactions = async () => {
     try {
-      const slug = await getSlug()
+      const slug = 'ankidroid'
       console.log("SANJAYD ",slug)
       const response = await axios.post(BASE_URL, {
         query: TRANSACTIONS,
@@ -76,7 +76,7 @@ export const fetchAccountData = async () => {
 
   export const fetchExpenses = async () => {
     try {
-      const slug = await getSlug()
+      const slug = 'ankidroid'
       console.log("SANJAYD ",slug)
       const response = await axios.post(BASE_URL, {
         query: EXPENSES,

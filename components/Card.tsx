@@ -76,7 +76,8 @@ const styles = StyleSheet.create({
     },
     amountContainer: {
         // flex:1
-        justifyContent:'center'
+        justifyContent:'center',
+        alignContent:'flex-end'
     },
     money: {
         color: 'green',
@@ -92,12 +93,13 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     amount: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        alignSelf:'flex-end'
     },
     profilePic: {
         width: 40,
         height: 40,
-        borderRadius: 75,
+        borderRadius: 20,
     },
     title: {
         fontWeight: 'bold',

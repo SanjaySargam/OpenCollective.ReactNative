@@ -1,4 +1,4 @@
-import { View, Text,StyleSheet,ActivityIndicator } from 'react-native'
+import { View, Text,StyleSheet,ActivityIndicator,ScrollView } from 'react-native'
 import React from 'react'
 import {useState,useEffect} from 'react'
 import {fetchTransactions,ApiResponse,Transaction} from './fetchAPI'
@@ -51,17 +51,18 @@ const TransactionScreen: React.FC = () => {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       {transactions.map((transaction, index) => (
         <Card key={index} {...transaction} />
       ))}
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    margin:10
+    margin:10,
+    
   },
 });
 

@@ -1,4 +1,4 @@
-import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
+import { View, Text, ActivityIndicator, StyleSheet,ScrollView } from 'react-native';
 import React, { useEffect,useState } from 'react'
 import {fetchExpenses,ApiResponse,Transaction} from './fetchAPI'
 import TransactionCard from './TransactionCard';
@@ -45,11 +45,11 @@ const ExpenseScreen:React.FC = () => {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       {transactions.map((transaction, index) => (
         <Card key={index} {...transaction}/>
       ))}
-    </View>
+    </ScrollView>
   );
 };
 
