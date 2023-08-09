@@ -9,5 +9,7 @@ import HomePage from './components/HomePage';
 import HomeScreen from './components/HomeScreen';
 import LoginPage from './components/LoginPage';
 import SignUpPage from './components/SignUpPage';
+import OAuthScreen from './components/OAuthScreen';
+import OAuth from './components/OAuth'
 
 AppRegistry.registerComponent(appName, () => HomeScreen);
