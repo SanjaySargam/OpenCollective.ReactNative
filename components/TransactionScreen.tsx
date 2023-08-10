@@ -7,6 +7,7 @@ import {storeSlug} from './AsyncStorage'
 import auth from '@react-native-firebase/auth'
 import {getSlug} from './firebaseQueries'
 import Card from './Card';
+import {useTheme} from './ThemeProvider'
 
 const TransactionScreen: React.FC = () => {
   const [expensesData, setExpensesData] = useState<any | null>(null);
@@ -14,6 +15,14 @@ const TransactionScreen: React.FC = () => {
   const [error, setError] = useState('');
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [name, setName] = useState('');
+  const {theme} = useTheme()
+
+  const styles = StyleSheet.create({
+    container: {
+      padding:10,
+      backgroundColor:theme.backgroundPrimary
+    },
+  });
 
 
   useEffect(() => {
@@ -50,6 +59,7 @@ const TransactionScreen: React.FC = () => {
     );
   }
 
+
   return (
     <ScrollView style={styles.container}>
       {transactions.map((transaction, index) => (
@@ -59,11 +69,6 @@ const TransactionScreen: React.FC = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    margin:10,
-    
-  },
-});
+
 
 export default TransactionScreen

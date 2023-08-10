@@ -9,17 +9,19 @@ import TransactionCard from './TransactionCard';
 // import ChatsScreen from './ChatsScreen';
 // import StatusScreen from './StatusScreen';
 // import CallsScreen from './CallsScreen';
+import {useTheme} from './ThemeProvider'
 
 const Tab = createMaterialTopTabNavigator();
 
 const TabNavigator: React.FC = () => {
+  const  {theme} = useTheme()
   return (
     <Tab.Navigator 
     screenOptions={{
         tabBarActiveTintColor: 'white', 
         tabBarInactiveTintColor: 'gray',
         tabBarStyle:{
-            backgroundColor:'#97b7f3',
+            backgroundColor:theme.mainTheme,
             elevation:0,
             marginLeft:20,
             marginRight:20

@@ -1,18 +1,24 @@
-import { View, Text, ActivityIndicator, StyleSheet,ScrollView } from 'react-native';
-import React, { useEffect,useState } from 'react'
-import {fetchExpenses,ApiResponse,Transaction} from './fetchAPI'
+import { View, Text, ActivityIndicator, StyleSheet, ScrollView } from 'react-native';
+import React, { useEffect, useState } from 'react'
+import { fetchExpenses, ApiResponse, Transaction } from './fetchAPI'
 import TransactionCard from './TransactionCard';
 import Card from './Card';
+import { useTheme } from './ThemeProvider'
 
-
-const ExpenseScreen:React.FC = () => {
+const ExpenseScreen: React.FC = () => {
   const [expensesData, setExpensesData] = useState<any | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [name, setName] = useState('');
+  const { theme } = useTheme()
 
-
+  const styles = StyleSheet.create({
+    container: {
+      padding: 10,
+      backgroundColor: theme.backgroundPrimary
+    },
+  });
   useEffect(() => {
     const fetchAccountData = async () => {
       try {
@@ -47,18 +53,13 @@ const ExpenseScreen:React.FC = () => {
   return (
     <ScrollView style={styles.container}>
       {transactions.map((transaction, index) => (
-        <Card key={index} {...transaction}/>
+        <Card key={index} {...transaction} />
       ))}
     </ScrollView>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-  },
-});
+
 
 
 export default ExpenseScreen

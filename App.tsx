@@ -1,10 +1,10 @@
 import { View, Text, SafeAreaView, ScrollView } from 'react-native'
-import React, {useEffect,useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { AppRegistry } from 'react-native';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import SignUpPage from './components/SignUpPage';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator  } from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import LoginPage from './components/LoginPage';
 import HomePage from './components/HomePage';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -13,8 +13,10 @@ import ExpenseScreen from './components/ExpenseScreen';
 import ProfileScreen from './components/ProfileScreen';
 import { getCurrentUser } from './components/authService';
 import auth from '@react-native-firebase/auth'; // Add this line to import the 'auth' object
-import {logout} from './components/authService';
+import { logout } from './components/authService';
 import { AuthContext } from './components/context';
+import { ThemeProvider } from './components/ThemeProvider';
+import HomeScreen from './components/HomeScreen';
 
 // Initialize Apollo Client
 const client = new ApolloClient({
@@ -65,13 +67,13 @@ const App: React.FC = () => {
   //   userToken: null,
   // };
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userToken,setUserToken] = useState('');
+  const [userToken, setUserToken] = useState('');
   // const [loginState, dispatch] = React.useReducer(loginReducer, initialLoginState);
-  const authContext = React.useMemo(() =>({
-    signIn: async() => {
+  const authContext = React.useMemo(() => ({
+    signIn: async () => {
       setUserToken('dfs');
     },
-    signOut: async() => {
+    signOut: async () => {
       setUserToken('');
       try {
         await logout();
@@ -83,9 +85,9 @@ const App: React.FC = () => {
       } catch (error) {
         console.error('Error logging out:', error);
       }
-      
+
     },
-  }),[]);
+  }), []);
   useEffect(() => {
     // Check if the user is already logged in
     const unsubscribe = auth().onAuthStateChanged((user) => {
@@ -99,23 +101,26 @@ const App: React.FC = () => {
     // Clean up the listener when the component unmounts
     return () => unsubscribe();
   }, []);
-  
+
   return (
-    <ApolloProvider client={client}>
-      <AuthContext.Provider value={authContext}>
-      <NavigationContainer>
-        {userToken ==='' ? (
-          <Stack.Navigator initialRouteName='LoginPage'>
-          <Stack.Screen name='SignUpPage' component={SignUpPage} options={{headerShown:false}} />
-          <Stack.Screen name='LoginPage' component={LoginPage} options={{headerShown:false}}/>
-          {/* Other screens and configurations */}
-        </Stack.Navigator>
-        ) : (
-          <HomePage/>
-        )}
-         </NavigationContainer>
-         </AuthContext.Provider>
-    </ApolloProvider>
+    <ThemeProvider>
+      <HomeScreen />
+    </ThemeProvider>
+    // <ApolloProvider client={client}>
+    //   <AuthContext.Provider value={authContext}>
+    //   <NavigationContainer>
+    //     {userToken ==='' ? (
+    //       <Stack.Navigator initialRouteName='LoginPage'>
+    //       <Stack.Screen name='SignUpPage' component={SignUpPage} options={{headerShown:false}} />
+    //       <Stack.Screen name='LoginPage' component={LoginPage} options={{headerShown:false}}/>
+    //       {/* Other screens and configurations */}
+    //     </Stack.Navigator>
+    //     ) : (
+    //       <HomePage/>
+    //     )}
+    //      </NavigationContainer>
+    //      </AuthContext.Provider>
+    // </ApolloProvider>
   );
 }
 
