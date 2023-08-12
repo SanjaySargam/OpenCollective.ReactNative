@@ -9,7 +9,7 @@ const OAuthScreen: React.FC = () => {
   const handleLogin = () => {
     // Your OAuth settings
     const clientId = '601a11568b7504a9addb';
-    const redirectUri = 'https://opencollectiveandroid.com/';
+    const redirectUri = 'com.opencollective.dev:/callback';
     const scope = 'transactions'; // Replace with the requested scope
 
     // Construct the authorization URL
@@ -22,20 +22,20 @@ const OAuthScreen: React.FC = () => {
     const { url } = newNavState;
   
     // Check if the URL contains the redirectUri
-    if (url.startsWith('https://opencollectiveandroid.com/')) {
+    if (url.startsWith('com.opencollective.dev:/callback')) {
       // Parse the authorization code from the URL
       const authorizationCode = new URL(url).searchParams.get('code');
       console.log("Auth Code",authorizationCode)
       // Exchange the authorization code for an access token
       try {
         const tokenResponse = await axios.post(
-          'https://api.opencollective.com/oauth/token',
+          'https://opencollective.com/oauth/authorize',
           {
             client_id: '601a11568b7504a9addb',
             client_secret: 'ed441c54424d997d27ee9d64d73b3bdf08143c4c',
             code: authorizationCode,
             grant_type: 'authorization_code',
-            redirect_uri: 'https://opencollectiveandroid.com/',
+            redirect_uri: 'com.opencollective.dev:/callback/',
           }
         );
   
@@ -53,7 +53,7 @@ const OAuthScreen: React.FC = () => {
 
   return (
     <View>
-      <Button title="Login" onPress={handleWebViewNavigationStateChange} />
+      <Button title="Login" onPress={handleLogin} />
       {isWebViewVisible && (
         <WebView
           source={{ uri: authorizationUrl }}

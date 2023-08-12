@@ -12,4 +12,4 @@ import SignUpPage from './components/SignUpPage';
 import OAuthScreen from './components/OAuthScreen';
 import OAuth from './components/OAuth'
 
-AppRegistry.registerComponent(appName, () => HomeScreen);
+AppRegistry.registerComponent(appName, () => OAuth);
