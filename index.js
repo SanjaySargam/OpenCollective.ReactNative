@@ -14,4 +14,4 @@ import OAuth from './components/OAuth'
 import Auth from './components/Auth';
 import Auth2 from './components/Auth2';
 
-AppRegistry.registerComponent(appName, () => OAuth);
+AppRegistry.registerComponent(appName, () => App);
