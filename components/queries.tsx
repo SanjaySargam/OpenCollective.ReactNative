@@ -166,3 +166,28 @@ export const OWN_ACCOUNT = gql`
     }
   }
 `;
+
+export const BALANCE = `
+query loggedInAccount {
+  loggedInAccount {
+    type
+    stats{
+      balance{
+        value
+        currency
+      }
+      totalAmountSpent{
+        value
+        currency
+      }
+      totalNetAmountReceived{
+        value
+        currency
+      }
+      yearlyBudget{
+        value
+        currency
+      }
+    }
+  }
+}`;

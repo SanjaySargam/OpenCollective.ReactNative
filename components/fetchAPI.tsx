@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_ACCOUNT, TRANSACTIONS, EXPENSES, ACCOUNT } from './queries'
+import { GET_ACCOUNT, TRANSACTIONS, EXPENSES, ACCOUNT, BALANCE } from './queries'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getSlug } from "./AsyncStorage";
 import { } from './ExpenseScreen'
@@ -70,9 +70,9 @@ export const fetchTransactions = async () => {
         },
       }
     );
-      console.log(response.data.data.loggedInAccount)
-      if (response.data) {
-        return response.data.data.loggedInAccount;
+    console.log(response.data.data.loggedInAccount)
+    if (response.data) {
+      return response.data.data.loggedInAccount;
     } else {
       throw new Error('No data received.');
     }
@@ -126,3 +126,26 @@ export const fetchExpenses = async () => {
     throw new Error('Error fetching account data: ' + error);
   }
 };
+
+export const fetchBalance = async () => {
+  try {
+    const token = await AsyncStorage.getItem('accessToken');
+    const response = await axios.post(BASE_URL, {
+      query: BALANCE,
+    },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'content-type': 'application/json',
+        },
+      }
+    );
+    if (response.data) {
+      return response.data.data.loggedInAccount;
+    } else {
+      throw new Error('No data received.');
+    }
+  } catch (error) {
+    throw new Error('Error fetching account data: ' + error);
+  }
+}
