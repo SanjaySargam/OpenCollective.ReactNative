@@ -28,10 +28,11 @@ const TransactionScreen: React.FC = () => {
   useEffect(() => {
     const fetchAccountData = async () => {
       try {
-        const currentUser = auth().currentUser;
-        const slug = await getSlug(currentUser?.uid as string)
-        await storeSlug(slug as string)
+        // const currentUser = auth().currentUser;
+        // const slug = await getSlug(currentUser?.uid as string)
+        // await storeSlug(slug as string)
         const accountData = await fetchTransactions();
+        console.log("account data",accountData)
         setName(accountData.name);
         setTransactions(accountData.transactions.nodes);
         setLoading(false);

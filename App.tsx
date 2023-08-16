@@ -17,110 +17,98 @@ import { logout } from './components/authService';
 import { AuthContext } from './components/context';
 import { ThemeProvider } from './components/ThemeProvider';
 import HomeScreen from './components/HomeScreen';
-
-// Initialize Apollo Client
-const client = new ApolloClient({
-  uri: 'https://api.opencollective.com/graphql/v2/6b6604a2c9e0ed5459af4e38f1473c630251de5b',
-  cache: new InMemoryCache()
-});
-
+import OAuth from './components/OAuth';
+import { authorize, ServiceConfiguration } from 'react-native-app-auth'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {client} from './components/apolloClient'
+const config = {
+  issuer: 'https://opencollective.com/oauth/authorize',
+  grant_type: 'authorization_code',
+  clientId: '601a11568b7504a9addb',
+  clientSecret: 'ed441c54424d997d27ee9d64d73b3bdf08143c4c',
+  redirectUrl: 'com.opencollective.dev:/callback',
+  scopes: ['account'],
+  serviceConfiguration: {
+    authorizationEndpoint: 'https://opencollective.com/oauth/authorize',
+    tokenEndpoint: 'https://opencollective.com/oauth/token',
+  } as ServiceConfiguration, // Type assertion to ServiceConfiguration
+  skipCodeExchange: true,
+};
 const Tab = createBottomTabNavigator();
 
 const Stack = createStackNavigator();
 
 
 const App: React.FC = () => {
-  // const loginReducer = (prevState:any, action:any) => {
-  //   switch( action.type ) {
-  //     case 'RETRIEVE_TOKEN': 
-  //       return {
-  //         ...prevState,
-  //         userToken: action.token,
-  //         isLoading: false,
-  //       };
-  //     case 'LOGIN': 
-  //       return {
-  //         ...prevState,
-  //         userName: action.id,
-  //         userToken: action.token,
-  //         isLoading: false,
-  //       };
-  //     case 'LOGOUT': 
-  //       return {
-  //         ...prevState,
-  //         userName: null,
-  //         userToken: null,
-  //         isLoading: false,
-  //       };
-  //     case 'REGISTER': 
-  //       return {
-  //         ...prevState,
-  //         userName: action.id,
-  //         userToken: action.token,
-  //         isLoading: false,
-  //       };
-  //   }
-  // };
-  // const initialLoginState = {
-  //   isLoading: true,
-  //   userName: null,
-  //   userToken: null,
-  // };
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userToken, setUserToken] = useState('');
-  // const [loginState, dispatch] = React.useReducer(loginReducer, initialLoginState);
-  const authContext = React.useMemo(() => ({
-    signIn: async () => {
-      setUserToken('dfs');
-    },
-    signOut: async () => {
-      setUserToken('');
-      try {
-        await logout();
-        setIsLoggedIn(false);
-        // dispatch({ type: 'LOGOUT' });
-        // Perform any additional actions after logout if needed
-        console.log('Logged out successfully!');
-        // goToLoginPage
-      } catch (error) {
-        console.error('Error logging out:', error);
-      }
+  const [accessToken, setAccessToken] = useState<string | null>(null);
+  const handlePostRequest = async (code: string) => {
+    const url = 'https://opencollective.com/oauth/token';
+    const bodyParams = new URLSearchParams();
+    bodyParams.append('grant_type', 'authorization_code');
+    bodyParams.append('code', code);
+    bodyParams.append('client_id', config.clientId);
+    bodyParams.append('client_secret', config.clientSecret);
+    bodyParams.append('redirect_uri', config.redirectUrl);
 
-    },
-  }), []);
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: bodyParams.toString(),
+      });
+      if (response.ok) {
+        const data = await response.json();
+        console.log(`data`, data)
+        setAccessToken(data.access_token);
+        await AsyncStorage.setItem('accessToken', data.access_token);
+      } else {
+        console.error('Request failed:', response.status);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+  const authenticate = async () => {
+    try {
+      const authResult = await authorize(config);
+
+      console.log("authresult", authResult)
+      // setAccessToken(authResult);
+      // Make a POST request after authenticatio
+      await handlePostRequest(authResult.authorizationCode)
+
+    } catch (error) {
+      console.error('Authentication error:', error);
+    }
+  };
   useEffect(() => {
-    // Check if the user is already logged in
-    const unsubscribe = auth().onAuthStateChanged((user) => {
-      if (user) {
-        // User is logged in, update isLoggedIn state to true
-        setIsLoggedIn(true);
-        setUserToken('slug');
-      }
-    });
-
-    // Clean up the listener when the component unmounts
-    return () => unsubscribe();
-  }, []);
-
+    if (!accessToken) {
+      const loadStoredToken = async () => {
+        try {
+          const storedToken = await AsyncStorage.getItem('accessToken');
+          if (storedToken) {
+            setAccessToken(storedToken);
+          } else {
+            authenticate()
+          }
+        } catch (error) {
+          console.error('Error loading stored token:', error);
+        }
+      };
+      loadStoredToken()
+    }
+    
+  }, [accessToken]); // This effect runs only once during component initialization
   return (
     <ThemeProvider>
-      <HomeScreen />
+      <ApolloProvider client={client}>
+          <HomeScreen />
+      </ApolloProvider>
     </ThemeProvider>
-    // <ApolloProvider client={client}>
-    //   <AuthContext.Provider value={authContext}>
-    //   <NavigationContainer>
-    //     {userToken ==='' ? (
-    //       <Stack.Navigator initialRouteName='LoginPage'>
-    //       <Stack.Screen name='SignUpPage' component={SignUpPage} options={{headerShown:false}} />
-    //       <Stack.Screen name='LoginPage' component={LoginPage} options={{headerShown:false}}/>
-    //       {/* Other screens and configurations */}
-    //     </Stack.Navigator>
-    //     ) : (
-    //       <HomePage/>
-    //     )}
-    //      </NavigationContainer>
-    //      </AuthContext.Provider>
-    // </ApolloProvider>
+
   );
 }
 

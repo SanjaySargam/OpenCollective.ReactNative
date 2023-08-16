@@ -1,10 +1,12 @@
 import axios from "axios";
-import {GET_ACCOUNT,TRANSACTIONS,EXPENSES} from './queries'
+import { GET_ACCOUNT, TRANSACTIONS, EXPENSES, ACCOUNT } from './queries'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getSlug } from "./AsyncStorage";
-import {} from './ExpenseScreen'
+import { } from './ExpenseScreen'
+import { useEffect } from "react";
 
 const BASE_URL = 'https://api.opencollective.com/graphql/v2'
+
 
 export interface ApiResponse {
   data: {
@@ -37,58 +39,90 @@ export interface Transaction {
 }
 
 export const fetchAccountData = async () => {
-    try {
-      const slug = 'ankidroid'
-      console.log("SANJAYD ",slug)
-      const response = await axios.post(BASE_URL, {
-        query: GET_ACCOUNT,
-        variables: { slug },
-      });
+  try {
+    const slug = 'sanjay-sargam'
+    console.log("SANJAYD ", slug)
+    const response = await axios.post(BASE_URL, {
+      query: GET_ACCOUNT,
+      variables: { slug },
+    });
 
-      if (response.data && response.data.data) {
-        return response.data.data.account;
-      } else {
-        throw new Error('No data received.');
-      }
-    } catch (error) {
-      throw new Error('Error fetching account data: ' + error);
+    if (response.data && response.data.data) {
+      return response.data.data.account;
+    } else {
+      throw new Error('No data received.');
     }
-  };
+  } catch (error) {
+    throw new Error('Error fetching account data: ' + error);
+  }
+};
 
-  export const fetchTransactions = async () => {
-    try {
-      const slug = 'ankidroid'
-      console.log("SANJAYD ",slug)
-      const response = await axios.post(BASE_URL, {
-        query: TRANSACTIONS,
-        variables: { slug },
-      });
-
-      if (response.data && response.data.data) {
-        return response.data.data.account;
-      } else {
-        throw new Error('No data received.');
+export const fetchTransactions = async () => {
+  try {
+    const token = await AsyncStorage.getItem('accessToken')
+    const response = await axios.post(BASE_URL, {
+      query: TRANSACTIONS,
+    },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'content-type': 'application/json',
+        },
       }
-    } catch (error) {
-      throw new Error('Error fetching account data: ' + error);
+    );
+      console.log(response.data.data.loggedInAccount)
+      if (response.data) {
+        return response.data.data.loggedInAccount;
+    } else {
+      throw new Error('No data received.');
     }
-  };
-
-  export const fetchExpenses = async () => {
-    try {
-      const slug = 'ankidroid'
-      console.log("SANJAYD ",slug)
-      const response = await axios.post(BASE_URL, {
-        query: EXPENSES,
-        variables: { slug },
-      });
-
-      if (response.data && response.data.data) {
-        return response.data.data.account;
-      } else {
-        throw new Error('No data received.');
+  } catch (error) {
+    throw new Error('Error fetching account data: ' + error);
+  }
+};
+export const fetchAccount = async () => {
+  try {
+    const token = await AsyncStorage.getItem('accessToken')
+    const response = await axios.post(BASE_URL, {
+      query: ACCOUNT,
+    },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'content-type': 'application/json',
+        },
       }
-    } catch (error) {
-      throw new Error('Error fetching account data: ' + error);
+    );
+
+    if (response.data) {
+      return response.data;
+    } else {
+      throw new Error('No data received.');
     }
-  };
+  } catch (error) {
+    throw new Error('Error fetching account data: ' + error);
+  }
+};
+export const fetchExpenses = async () => {
+  try {
+    const token = await AsyncStorage.getItem('accessToken')
+    const response = await axios.post(BASE_URL, {
+      query: EXPENSES,
+    },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'content-type': 'application/json',
+        },
+      }
+    );
+
+    if (response.data) {
+      return response.data.data.loggedInAccount;
+    } else {
+      throw new Error('No data received.');
+    }
+  } catch (error) {
+    throw new Error('Error fetching account data: ' + error);
+  }
+};

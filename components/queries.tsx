@@ -71,8 +71,8 @@ query account($slug: String) {
 `;
 
 export const TRANSACTIONS = `
-query account($slug: String) {
-  account(slug: $slug) {
+query loggedInAccount {
+  loggedInAccount {
     name
     slug
     transactions(limit: 10, type: CREDIT) {
@@ -97,9 +97,21 @@ query account($slug: String) {
   }
 }`;
 
+export const ACCOUNT = `
+query loggedInAccount {
+  loggedInAccount {
+    id
+    name
+    slug
+    email
+    imageUrl
+  }
+}
+`;
+
 export const EXPENSES = `
-query account($slug: String) {
-  account(slug: $slug) {
+query loggedInAccount {
+  loggedInAccount {
     name
     slug
     transactions(limit: 10, type: DEBIT) {
