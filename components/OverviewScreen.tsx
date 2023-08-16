@@ -1,40 +1,65 @@
 // src/ChatsScreen.tsx
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import {useTheme} from './ThemeProvider'
+import { fetchBalance } from './fetchAPI';
+import { useTheme } from './ThemeProvider'
 const OverviewScreen: React.FC = () => {
-  const {theme} = useTheme()
+  const { theme } = useTheme()
+  const [stats, setStats] = useState({
+    balance: { value: 0, currency: '' },
+    totalAmountSpent: { value: 0, currency: '' },
+    totalNetAmountReceived: { value: 0, currency: '' },
+    yearlyBudget: { value: 0, currency: '' },
+  });
+  const [type, setType] = useState('');
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetchBalance()
+        setStats(response.stats);
+        setType(response.type);
+        console.log("stats", response.stats)
+        console.log("type", response.type)
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const data = [
     {
       id: 1,
-      balance: `TODAY'S BALANCE`,
-      amount: `$15,102.00`,
+      balance: type === 'INDIVIDUAL' ? `TOTAL RECEIVED WITH EXPENSES
+      `: `TODAY'S BALANCE`,
+      amount: `${stats.balance.value.toFixed(2)} ${stats.balance.currency}`,
+    },
+    {
+      id: 3,
+      balance: type === 'INDIVIDUAL' ? `TOTAL CONTRIBUTED` : `TOTAL DISBURSED`,
+      amount: `${stats.totalAmountSpent.value.toFixed(2)} ${stats.totalAmountSpent.currency}`,
     },
     {
       id: 2,
       balance: `TOTAL RAISED`,
-      amount: `$61,937.00`,
-    },
-    {
-      id: 3,
-      balance: `TOTAL DISBURSED`,
-      amount: `$46,834.00`,
+      amount: `${stats.totalNetAmountReceived.value.toFixed(2)} ${stats.totalNetAmountReceived.currency}`,
     },
     {
       id: 4,
       balance: `ESTIMATED ANNUAL BUDGET`,
-      amount: `$14,497`,
+      amount: `${stats.yearlyBudget.value.toFixed(2)} ${stats.yearlyBudget.currency}`,
     },
+  ];
 
-  ]
 
   const styles = StyleSheet.create({
     scrollViewContent: {
       flexGrow: 1,
     },
     container: {
-      flex:1,
-      backgroundColor:theme.backgroundPrimary
+      flex: 1,
+      backgroundColor: theme.backgroundPrimary
     },
     content: {
       flex: 1,
@@ -47,12 +72,11 @@ const OverviewScreen: React.FC = () => {
       right: 0,
       bottom: 0,
       backgroundColor: theme.mainTheme, // Set your desired background color here
-      height:130
+      height: 130
     },
     card: {
       backgroundColor: theme.backgroundColor,
       borderRadius: 8,
-      height: 170,
       margin: 20,
       padding: 20
     },
@@ -84,7 +108,7 @@ const OverviewScreen: React.FC = () => {
       textAlign: 'center',
       alignSelf: 'center',
       flex: 1,
-  
+
     }
   })
 
@@ -93,16 +117,28 @@ const OverviewScreen: React.FC = () => {
     <View style={styles.container}>
       <View style={styles.background} />
       <ScrollView style={styles.content}>
-        {data.map(({ balance, amount }) => (
-          <View key={balance} style={styles.card}>
-            <Text style={styles.balance}>{balance}</Text>
-            <Text style={styles.amount}>{amount}</Text>
-            <View style={styles.actionContainer}>
-              <Text style={styles.action}>Contribute</Text>
-              <Text style={styles.action}>Submit Expense</Text>
-            </View>
-          </View>
-        ))}
+      {type === 'INDIVIDUAL'
+          ? data.slice(0, 2).map(({ balance, amount }) => (
+              <View key={balance} style={styles.card}>
+                <Text style={styles.balance}>{balance}</Text>
+                <Text style={styles.amount}>{amount}</Text>
+                <View style={styles.actionContainer}>
+                  <Text style={styles.action}>Contribute</Text>
+                  <Text style={styles.action}>Submit Expense</Text>
+                </View>
+              </View>
+            ))
+          : data.map(({ balance, amount }) => (
+              <View key={balance} style={styles.card}>
+                <Text style={styles.balance}>{balance}</Text>
+                <Text style={styles.amount}>{amount}</Text>
+                <View style={styles.actionContainer}>
+                  <Text style={styles.action}>Contribute</Text>
+                  <Text style={styles.action}>Submit Expense</Text>
+                </View>
+              </View>
+            ))}
+
       </ScrollView>
     </View>
   );

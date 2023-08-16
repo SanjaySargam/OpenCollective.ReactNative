@@ -99,12 +99,12 @@ export default function HomeScreen() {
     }
     return (
         <View style={styles.container}>
-            {/* {loggedInAccount ? ( */}
+            {loggedInAccount ? (
                 <View style={styles.container}>
                     <StatusBar backgroundColor={theme.mainTheme} barStyle="light-content" />
                     <View style={styles.toolbar}>
                         <TouchableOpacity>
-                            <Image source={{ uri: loggedInAccount!!.imageUrl }} style={styles.profilePic} />
+                            <Image source={{ uri: loggedInAccount.imageUrl }} style={styles.profilePic} />
                         </TouchableOpacity>
                         <View style={styles.textContainer}>
                             <Text style={styles.welcomeText}>Welcome back,</Text>
@@ -123,9 +123,9 @@ export default function HomeScreen() {
                         </NavigationContainer>
                     </View>
                 </View>
-            {/* ) : (
+            ) : (
                 <Text>Loading.....</Text>
-            )} */}
+            )}
         </View>
     )
 }
