@@ -59,10 +59,11 @@ const Card: React.FC<Transaction> = ({
             alignContent: 'flex-end'
         },
         money: {
-            color: 'green',
+            color: type === 'CREDIT' ?'green':'red',
             fontWeight: 'bold'
         },
         credit: {
+            
             color: 'green',
             fontWeight: 'bold'
         },
@@ -110,7 +111,7 @@ const Card: React.FC<Transaction> = ({
             </View>
             <View style={styles.amountContainer}>
                 <View style={styles.amount}>
-                    <Text style={styles.credit}>+</Text>
+                    <Text style={styles.credit}/>
                     <Text style={styles.money}>{value}</Text>
                     <Text style={styles.currency}>{currency}</Text>
                 </View>
