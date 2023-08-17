@@ -2,7 +2,9 @@ import { StyleSheet, Text, View, Image, StatusBar, TouchableOpacity, Button, Act
 import React, { useEffect, useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import TabNavigator from './TabNavigator';
-import Icon from 'react-native-vector-icons/FontAwesome'; // Use the appropriate icon library (e.g., FontAwesome)
+import FontAwesomeIcon  from 'react-native-vector-icons/FontAwesome'; // Use the appropriate icon library (e.g., FontAwesome)
+import  Ionicons  from 'react-native-vector-icons/SimpleLineIcons';
+import Icon from 'react-native-vector-icons/MaterialIcons'
 // import { ScrollView } from 'react-native-gesture-handler';
 import { AuthContext } from './context';
 import { ThemeProvider } from './ThemeProvider';
@@ -12,6 +14,7 @@ import { fetchAccount } from './fetchAPI';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ACCOUNT } from './queries';
+import { lightTheme } from './themes';
 interface Account {
     id: string,
     name: string,
@@ -45,20 +48,19 @@ export default function HomeScreen() {
             backgroundColor: theme.mainTheme
         },
         toolbar: {
-            paddingLeft: 20,
-            paddingRight: 20,
-            paddingTop: 25,
+            margin:20,
             flexDirection: 'row',
             alignItems: 'center',
+            alignSelf:'center'
         },
         profilePic: {
             width: 40,
             height: 40,
-            borderRadius:20
+            borderRadius:20,
         },
         textContainer: {
             flexDirection: 'column',
-            marginLeft: 5
+            marginLeft: 5,
         },
         name: {
             color: 'white',
@@ -73,7 +75,14 @@ export default function HomeScreen() {
         },
         navigationContainer: {
             flex: 1,
-            paddingTop: 25,
+        },
+        icon:{
+            color:theme.backgroundColor,
+            fontSize:30,
+            margin:8
+        },
+        iconContainer:{
+            flexDirection:'row'
         }
 
     })
@@ -110,12 +119,11 @@ export default function HomeScreen() {
                             <Text style={styles.welcomeText}>Welcome back,</Text>
                             <Text style={styles.name}>{loggedInAccount!!.name}</Text>
                         </View>
-                        <Button
-                            title={`Switch to`}
-                            onPress={toggleTheme}
-                        />
-                        <Icon name="bell" size={30} color="black" />
-                        <Icon name="cog" size={30} color="black" />
+                        <View style={styles.iconContainer}>
+                        <Icon name={theme === lightTheme ? 'light-mode':'dark-mode'} style={styles.icon} onPress={toggleTheme}/>
+                        <Icon name="notifications" style={styles.icon}/>
+                        <Ionicons name="settings" style={styles.icon}/>
+                        </View>
                     </View>
                     <View style={styles.navigationContainer}>
                         <NavigationContainer>
