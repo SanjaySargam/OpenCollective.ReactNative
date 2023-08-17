@@ -1,10 +1,12 @@
 // src/ChatsScreen.tsx
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView,ActivityIndicator } from 'react-native';
 import { fetchBalance } from './fetchAPI';
 import { useTheme } from './ThemeProvider'
 const OverviewScreen: React.FC = () => {
   const { theme } = useTheme()
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const [stats, setStats] = useState({
     balance: { value: 0, currency: '' },
     totalAmountSpent: { value: 0, currency: '' },
@@ -12,45 +14,6 @@ const OverviewScreen: React.FC = () => {
     yearlyBudget: { value: 0, currency: '' },
   });
   const [type, setType] = useState('');
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetchBalance()
-        setStats(response.stats);
-        setType(response.type);
-        console.log("stats", response.stats)
-        console.log("type", response.type)
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  const data = [
-    {
-      id: 1,
-      balance: type === 'INDIVIDUAL' ? `TOTAL RECEIVED WITH EXPENSES
-      `: `TODAY'S BALANCE`,
-      amount: `${stats.balance.value.toFixed(2)} ${stats.balance.currency}`,
-    },
-    {
-      id: 3,
-      balance: type === 'INDIVIDUAL' ? `TOTAL CONTRIBUTED` : `TOTAL DISBURSED`,
-      amount: `${stats.totalAmountSpent.value.toFixed(2)} ${stats.totalAmountSpent.currency}`,
-    },
-    {
-      id: 2,
-      balance: `TOTAL RAISED`,
-      amount: `${stats.totalNetAmountReceived.value.toFixed(2)} ${stats.totalNetAmountReceived.currency}`,
-    },
-    {
-      id: 4,
-      balance: `ESTIMATED ANNUAL BUDGET`,
-      amount: `${stats.yearlyBudget.value.toFixed(2)} ${stats.yearlyBudget.currency}`,
-    },
-  ];
 
 
   const styles = StyleSheet.create({
@@ -111,6 +74,65 @@ const OverviewScreen: React.FC = () => {
 
     }
   })
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetchBalance()
+        setStats(response.stats);
+        setType(response.type);
+        console.log("stats", response.stats)
+        console.log("type", response.type)
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+  
+  const data = [
+    {
+      id: 1,
+      balance: type === 'INDIVIDUAL' ? `TOTAL RECEIVED WITH EXPENSES
+      `: `TODAY'S BALANCE`,
+      amount: `${stats.balance.value.toFixed(2)} ${stats.balance.currency}`,
+    },
+    {
+      id: 3,
+      balance: type === 'INDIVIDUAL' ? `TOTAL CONTRIBUTED` : `TOTAL DISBURSED`,
+      amount: `${stats.totalAmountSpent.value.toFixed(2)} ${stats.totalAmountSpent.currency}`,
+    },
+    {
+      id: 2,
+      balance: `TOTAL RAISED`,
+      amount: `${stats.totalNetAmountReceived.value.toFixed(2)} ${stats.totalNetAmountReceived.currency}`,
+    },
+    {
+      id: 4,
+      balance: `ESTIMATED ANNUAL BUDGET`,
+      amount: `${stats.yearlyBudget.value.toFixed(2)} ${stats.yearlyBudget.currency}`,
+    },
+  ];
+
+
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" color="#000" />
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.container}>
+        <Text>Error: {error}</Text>
+      </View>
+    );
+  }
 
 
   return (
