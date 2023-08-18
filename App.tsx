@@ -2,18 +2,14 @@ import { View, Text, SafeAreaView, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { AppRegistry } from 'react-native';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
-import SignUpPage from './components/SignUpPage';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import LoginPage from './components/LoginPage';
 import HomePage from './components/HomePage';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TransactionScreen from './components/TransactionScreen';
 import ExpenseScreen from './components/ExpenseScreen';
 import ProfileScreen from './components/ProfileScreen';
-import { getCurrentUser } from './components/authService';
 import auth from '@react-native-firebase/auth'; // Add this line to import the 'auth' object
-import { logout } from './components/authService';
 import { AuthContext } from './components/context';
 import { ThemeProvider } from './components/ThemeProvider';
 import HomeScreen from './components/HomeScreen';

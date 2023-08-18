@@ -2,11 +2,11 @@ import { StyleSheet, Text, View, Image, StatusBar, TouchableOpacity, Button, Act
 import React, { useEffect, useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import TabNavigator from './TabNavigator';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import FontAwesomeIcon  from 'react-native-vector-icons/FontAwesome'; // Use the appropriate icon library (e.g., FontAwesome)
 import  Ionicons  from 'react-native-vector-icons/SimpleLineIcons';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 // import { ScrollView } from 'react-native-gesture-handler';
-import { AuthContext } from './context';
 import { ThemeProvider } from './ThemeProvider';
 // const { signOut, toggleTheme } = React.useContext(AuthContext);
 import { useTheme } from './ThemeProvider';
@@ -21,6 +21,7 @@ interface Account {
     slug: string,
     imageUrl: string
 }
+// const Drawer = createDrawerNavigator()
 export default function HomeScreen() {
     const { toggleTheme, theme } = useTheme();
     const [loading, setLoading] = useState(true);

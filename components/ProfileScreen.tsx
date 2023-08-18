@@ -1,7 +1,6 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity,ActivityIndicator } from 'react-native'
 import React from 'react'
 import {useState,useEffect} from 'react'
-import { logout } from './authService';
 import { fetchAccountData} from './fetchAPI';
 import {AuthContext} from './context'
 

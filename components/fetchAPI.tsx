@@ -1,7 +1,6 @@
 import axios from "axios";
 import { GET_ACCOUNT, TRANSACTIONS, EXPENSES, ACCOUNT, BALANCE } from './queries'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { getSlug } from "./AsyncStorage";
 import { } from './ExpenseScreen'
 import { useEffect } from "react";
 

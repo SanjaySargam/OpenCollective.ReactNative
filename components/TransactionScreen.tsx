@@ -2,10 +2,7 @@ import { View, Text,StyleSheet,ActivityIndicator,ScrollView } from 'react-native
 import React from 'react'
 import {useState,useEffect} from 'react'
 import {fetchTransactions,ApiResponse,Transaction} from './fetchAPI'
-import TransactionCard from './TransactionCard';
-import {storeSlug} from './AsyncStorage'
 import auth from '@react-native-firebase/auth'
-import {getSlug} from './firebaseQueries'
 import Card from './Card';
 import {useTheme} from './ThemeProvider'
 

@@ -5,7 +5,6 @@ import OverviewScreen from './OverviewScreen';
 import TransactionScreen from './TransactionScreen';
 import ExpenseScreen from './ExpenseScreen';
 import {ScrollView} from 'react-native'
-import TransactionCard from './TransactionCard';
 // import ChatsScreen from './ChatsScreen';
 // import StatusScreen from './StatusScreen';
 // import CallsScreen from './CallsScreen';

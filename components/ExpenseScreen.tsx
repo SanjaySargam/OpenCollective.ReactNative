@@ -1,7 +1,6 @@
 import { View, Text, ActivityIndicator, StyleSheet, ScrollView } from 'react-native';
 import React, { useEffect, useState } from 'react'
 import { fetchExpenses, ApiResponse, Transaction } from './fetchAPI'
-import TransactionCard from './TransactionCard';
 import Card from './Card';
 import { useTheme } from './ThemeProvider'
 
