@@ -41,7 +41,8 @@ const OverviewScreen: React.FC = () => {
       backgroundColor: theme.backgroundColor,
       borderRadius: 8,
       margin: 20,
-      padding: 20
+      padding: 20,
+      elevation:2
     },
     balance: {
       color: theme.gray

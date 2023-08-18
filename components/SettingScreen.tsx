@@ -11,35 +11,35 @@ const cards = [
         index:1,
         icon: 'account-circle',
         title: 'Info',
-        navigation: 'InfoScreen',
+        screen:'Info',
         isRight: true
     },
     {
         index:2,
         icon: 'notifications-none',
         title: 'Notifications',
-        navigation: 'NotificationScreen',
+        screen:'Info',
         isRight: true
     },
     {
         index:3,
         icon: 'apps',
         title: 'Authorized Apps',
-        navigation: 'AuthorizedScreen',
+        screen:'Info',
         isRight: true
     },
     {
         index:4,
         icon: 'local-activity',
         title: 'Activity Log',
-        navigation: 'ActivityScreen',
+        screen:'Info',
         isRight: true
     },
     {
         index:5,
         icon: 'logout',
         title: 'Log out',
-        navigate: 'LogOut',
+        screen:'Info',
         isRight: false
     }
 ]
@@ -55,7 +55,7 @@ const SettingScreen:React.FC<Screen1Props> = ({navigation}) => {
         },
         toolbar: {
             padding:25,
-            backgroundColor:theme.mainTheme
+            backgroundColor:theme.mainTheme,
         },
         cardContainer: {
             flex:1,
@@ -68,27 +68,25 @@ const SettingScreen:React.FC<Screen1Props> = ({navigation}) => {
         }
     })
     return (
-        <ThemeProvider>
             <View style={styles.container}>
                 <View style={styles.toolbar}>
                     <Text style={styles.title}>Settings</Text>
                 </View>
                 <View style={styles.cardContainer}>
                     {
-                        cards.map(({ icon, title, navigation, isRight, index }) => (
+                        cards.map(({ icon, title, isRight, index, screen }) => (
                             <SettingCard
                                 key={index}
                                 icon={icon}
                                 title={title}
-                                navigation={navigation}
                                 isRight={isRight}
+                                screen={screen}
+                                navigation={navigation} // Pass the navigation prop
                             />
                         ))
                     }
                 </View>
-
             </View>
-        </ThemeProvider>
     )
 }
 export default SettingScreen
