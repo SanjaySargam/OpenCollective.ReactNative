@@ -16,7 +16,8 @@ import HomeScreen from './components/HomeScreen';
 import OAuth from './components/OAuth';
 import { authorize, ServiceConfiguration } from 'react-native-app-auth'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {client} from './components/apolloClient'
+import SettingScreen from './components/SettingScreen';
+import { client } from './components/apolloClient'
 const config = {
   issuer: 'https://opencollective.com/oauth/authorize',
   grant_type: 'authorization_code',
@@ -96,12 +97,17 @@ const App: React.FC = () => {
       };
       loadStoredToken()
     }
-    
+
   }, [accessToken]); // This effect runs only once during component initialization
   return (
     <ThemeProvider>
       <ApolloProvider client={client}>
-          <HomeScreen />
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false }}>
+            <Stack.Screen name='Home' component={HomeScreen}/>
+            <Stack.Screen name='Settings' component={SettingScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
       </ApolloProvider>
     </ThemeProvider>
 

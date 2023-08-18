@@ -4,6 +4,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import Feather from 'react-native-vector-icons/Feather'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { Icon } from '@expo/vector-icons/build/createIconSet'
+import {useTheme} from './ThemeProvider'
 
 export interface SettingCard {
     icon: string,
@@ -14,12 +15,13 @@ export interface SettingCard {
 
 
 const SettingCard: React.FC<SettingCard> = ({ icon, title, navigation, isRight }) => {
+    const {theme} = useTheme();
     const styles = StyleSheet.create({
         mainContainer: {
             flex: 1
         },
         container: {
-            backgroundColor: '#97b7f3',
+            backgroundColor: theme.textColor,
             borderRadius: 16,
             padding: 20,
             alignItems: 'center',
@@ -28,12 +30,12 @@ const SettingCard: React.FC<SettingCard> = ({ icon, title, navigation, isRight }
             margin:10
         },
         icon: {
-            color: isRight === true ? 'black':'red',
+            color: isRight === true ? theme.mainTheme:'red',
             alignSelf: 'center',
             fontSize: 24,
         },
         title: {
-            color: isRight === true ? 'black':'red',
+            color: isRight === true ? theme.backgroundColor:'red',
             flex: 1,
             alignSelf: 'center',
             marginLeft: 10,

@@ -21,8 +21,11 @@ interface Account {
     slug: string,
     imageUrl: string
 }
+type Screen1Props = {
+    navigation: any; // You can use the specific type from @react-navigation/native if available
+  };
 // const Drawer = createDrawerNavigator()
-export default function HomeScreen() {
+const HomeScreen:React.FC<Screen1Props> = ({ navigation }) => {
     const { toggleTheme, theme } = useTheme();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -123,13 +126,13 @@ export default function HomeScreen() {
                         <View style={styles.iconContainer}>
                         <Icon name={theme === lightTheme ? 'light-mode':'dark-mode'} style={styles.icon} onPress={toggleTheme}/>
                         <Icon name="notifications" style={styles.icon}/>
-                        <Ionicons name="settings" style={styles.icon}/>
+                        <Ionicons name="settings" style={styles.icon} onPress={() => navigation.navigate('Settings')}/>
                         </View>
                     </View>
                     <View style={styles.navigationContainer}>
-                        <NavigationContainer>
+                        {/* <NavigationContainer> */}
                             <TabNavigator />
-                        </NavigationContainer>
+                        {/* </NavigationContainer> */}
                     </View>
                 </View>
             ) : (
@@ -139,3 +142,4 @@ export default function HomeScreen() {
     )
 }
 
+export default HomeScreen
