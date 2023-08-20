@@ -191,3 +191,19 @@ query loggedInAccount {
     }
   }
 }`;
+
+export const PROFILE_DETAILS = `
+query loggedInAccount {
+  loggedInAccount {
+    imageUrl
+    name
+    legalName
+    description
+    slug
+    currency
+    location{
+      country
+      structured
+    }
+  }
+}`;

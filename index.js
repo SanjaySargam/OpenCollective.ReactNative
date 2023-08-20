@@ -10,4 +10,4 @@ import HomeScreen from './components/HomeScreen';
 import InfoScreen from './components/InfoScreen';
 
 
-AppRegistry.registerComponent(appName, () => InfoScreen);
+AppRegistry.registerComponent(appName, () => App);

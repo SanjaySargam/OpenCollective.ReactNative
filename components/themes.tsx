@@ -6,6 +6,7 @@ const lightTheme = {
     backgroundColor: '#FFFFFF',
     textColor: '#000000',
     gray:'#9b9b9b',
+    borderColor:'#ccc'
     // other light theme properties...
   };
   
@@ -15,6 +16,7 @@ const lightTheme = {
     backgroundColor: '#000000',
     textColor: '#FFFFFF',
     gray:'#eeeeee',
+    borderColor:'#000000'
     // other dark theme properties...
   };
   
