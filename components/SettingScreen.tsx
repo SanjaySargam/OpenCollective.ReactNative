@@ -63,7 +63,7 @@ const SettingScreen:React.FC<Screen1Props> = ({navigation}) => {
         },
         title: {
             fontSize: 30,
-            color: 'black',
+            color: theme.backgroundColor,
             fontWeight: 'bold',
         }
     })
