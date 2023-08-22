@@ -39,7 +39,7 @@ const OverviewScreen: React.FC = () => {
     },
     card: {
       backgroundColor: theme.backgroundColor,
-      borderRadius: 8,
+      borderRadius: 16,
       margin: 20,
       padding: 20,
       elevation:2
