@@ -1,10 +1,11 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Feather from 'react-native-vector-icons/Feather'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { Icon } from '@expo/vector-icons/build/createIconSet'
 import { ThemeProvider, useTheme } from './ThemeProvider'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export interface SettingCard {
     icon: string,
@@ -46,15 +47,17 @@ const SettingCard: React.FC<SettingCard & Screen1Props> = ({ icon, title, isRigh
         },
 
     })
-
+    const handleOnPress = async() => {
+        navigation.navigate(screen as string)        
+    }
     return (
-        <View>
+        <TouchableOpacity onPress={handleOnPress}>
         <View style={styles.container}>
-            <MaterialIcons name={icon} style={styles.icon} onPress={() => navigation.navigate(screen as string)} />
+            <MaterialIcons name={icon} style={styles.icon}/>
             <Text style={styles.title}>{title}</Text>
             {isRight && <Feather name='chevron-right' style={styles.icon} />}
         </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 

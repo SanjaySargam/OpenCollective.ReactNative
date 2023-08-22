@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import TabNavigator from './TabNavigator';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import FontAwesomeIcon  from 'react-native-vector-icons/FontAwesome'; // Use the appropriate icon library (e.g., FontAwesome)
-import  Ionicons  from 'react-native-vector-icons/SimpleLineIcons';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'; // Use the appropriate icon library (e.g., FontAwesome)
+import Ionicons from 'react-native-vector-icons/SimpleLineIcons';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 // import { ScrollView } from 'react-native-gesture-handler';
 import { ThemeProvider } from './ThemeProvider';
@@ -23,9 +23,9 @@ interface Account {
 }
 type Screen1Props = {
     navigation: any; // You can use the specific type from @react-navigation/native if available
-  };
+};
 // const Drawer = createDrawerNavigator()
-const HomeScreen:React.FC<Screen1Props> = ({ navigation }) => {
+const HomeScreen: React.FC<Screen1Props> = ({ navigation }) => {
     const { toggleTheme, theme } = useTheme();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -52,15 +52,15 @@ const HomeScreen:React.FC<Screen1Props> = ({ navigation }) => {
             backgroundColor: theme.mainTheme
         },
         toolbar: {
-            margin:20,
+            margin: 20,
             flexDirection: 'row',
             alignItems: 'center',
-            alignSelf:'center'
+            alignSelf: 'center'
         },
         profilePic: {
             width: 40,
             height: 40,
-            borderRadius:20,
+            borderRadius: 20,
         },
         textContainer: {
             flexDirection: 'column',
@@ -80,13 +80,13 @@ const HomeScreen:React.FC<Screen1Props> = ({ navigation }) => {
         navigationContainer: {
             flex: 1,
         },
-        icon:{
-            color:theme.backgroundColor,
-            fontSize:30,
-            margin:8
+        icon: {
+            color: theme.backgroundColor,
+            fontSize: 30,
+            margin: 8
         },
-        iconContainer:{
-            flexDirection:'row'
+        iconContainer: {
+            flexDirection: 'row'
         }
 
     })
@@ -124,14 +124,20 @@ const HomeScreen:React.FC<Screen1Props> = ({ navigation }) => {
                             <Text style={styles.name}>{loggedInAccount!!.name}</Text>
                         </View>
                         <View style={styles.iconContainer}>
-                        <Icon name={theme === lightTheme ? 'light-mode':'dark-mode'} style={styles.icon} onPress={toggleTheme}/>
-                        <Icon name="notifications" style={styles.icon}/>
-                        <Ionicons name="settings" style={styles.icon} onPress={() => navigation.navigate('Settings')}/>
+                            <TouchableOpacity onPress={toggleTheme}>
+                                <Icon name={theme === lightTheme ? 'light-mode' : 'dark-mode'} style={styles.icon}/>
+                            </TouchableOpacity>
+                            <TouchableOpacity>
+                                <Icon name="notifications" style={styles.icon} />
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => navigation.navigate('Settings')} >
+                                <Ionicons name="settings" style={styles.icon}/>
+                            </TouchableOpacity>
                         </View>
                     </View>
                     <View style={styles.navigationContainer}>
                         {/* <NavigationContainer> */}
-                            <TabNavigator />
+                        <TabNavigator />
                         {/* </NavigationContainer> */}
                     </View>
                 </View>
