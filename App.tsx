@@ -19,6 +19,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import SettingScreen from './components/SettingScreen';
 import { client } from './components/apolloClient'
 import InfoScreen from './components/InfoScreen';
+import NotificationScreen from './components/NotificationScreen';
 const config = {
   issuer: 'https://opencollective.com/oauth/authorize',
   grant_type: 'authorization_code',
@@ -108,6 +109,7 @@ const App: React.FC = () => {
             <Stack.Screen name='Home' component={HomeScreen}/>
             <Stack.Screen name='Settings' component={SettingScreen} />
             <Stack.Screen name='Info' component={InfoScreen} />
+            <Stack.Screen name='Notification' component={NotificationScreen}/>
           </Stack.Navigator>
         </NavigationContainer>
       </ApolloProvider>

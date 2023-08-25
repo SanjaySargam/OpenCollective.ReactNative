@@ -18,7 +18,7 @@ const cards = [
         index:2,
         icon: 'notifications-none',
         title: 'Notifications',
-        screen:'Info',
+        screen:'Notification',
         isRight: true
     },
     {
