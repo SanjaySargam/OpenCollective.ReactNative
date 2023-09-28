@@ -14,7 +14,7 @@ import { fetchAccount } from './fetchAPI';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ACCOUNT } from './queries';
-import { lightTheme } from './themes';
+import { darkTheme, lightTheme } from './themes';
 interface Account {
     id: string,
     name: string,
@@ -125,7 +125,7 @@ const HomeScreen: React.FC<Screen1Props> = ({ navigation }) => {
                         </View>
                         <View style={styles.iconContainer}>
                             <TouchableOpacity onPress={toggleTheme}>
-                                <Icon name={theme === lightTheme ? 'light-mode' : 'dark-mode'} style={styles.icon}/>
+                                <Icon name={theme === darkTheme ? 'light-mode' : 'dark-mode'} style={styles.icon}/>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={() => navigation.navigate('Notification')}>
                                 <Icon name="notifications" style={styles.icon} />
