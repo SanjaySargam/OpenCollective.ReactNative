@@ -68,7 +68,8 @@ const HomeScreen: React.FC<Screen1Props> = ({ navigation }) => {
         },
         name: {
             color: 'white',
-            fontFamily: 'Mr Peter Bold'
+            fontFamily: 'Mr Peter Bold',
+            fontWeight:'bold'
         },
         welcomeText: {
             color: 'black'
