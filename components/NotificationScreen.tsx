@@ -32,7 +32,9 @@ const NotificationScreen = () => {
         notiContainer: {
             flexDirection: 'row',
             justifyContent:'center',
-            alignContent:'center'
+            alignContent:'center',
+            marginHorizontal: 10, // Adjust as needed
+            padding:1
         },
         horizontalLine: {
             borderBottomColor: theme.textColor,
