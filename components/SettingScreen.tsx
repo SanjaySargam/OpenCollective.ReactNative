@@ -3,8 +3,8 @@ import React from 'react'
 import { useTheme } from './ThemeProvider'
 import { ThemeProvider } from './ThemeProvider';
 import SettingCard from './SettingCard';
-
-
+import { logout } from 'react-native-app-auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const cards = [
     {
@@ -39,7 +39,7 @@ const cards = [
         index:5,
         icon: 'logout',
         title: 'Log out',
-        screen:'Info',
+        screen:'',
         isRight: false
     }
 ]
@@ -67,6 +67,17 @@ const SettingScreen:React.FC<Screen1Props> = ({navigation}) => {
             fontWeight: 'bold',
         }
     })
+
+    const handleLogout = async () => {
+        // Clear the access token from AsyncStorage or any other storage
+        try {
+          await AsyncStorage.removeItem('accessToken');
+          console.log('Logout')
+        } catch (error) {
+          console.error('Error clearing access token:', error);
+        }
+      }
+
     return (
             <View style={styles.container}>
                 <View style={styles.toolbar}>
@@ -82,7 +93,14 @@ const SettingScreen:React.FC<Screen1Props> = ({navigation}) => {
                                 isRight={isRight}
                                 screen={screen}
                                 navigation={navigation} // Pass the navigation prop
-                                handleonPress={() => navigation.navigate(screen as string)}
+                                handleonPress={() => {
+                                    if(screen){
+                                        navigation.navigate(screen as string)
+                                    }
+                                    else{
+                                        handleLogout()
+                                    }
+                                }}
                             />
                         ))
                     }
