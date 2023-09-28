@@ -82,6 +82,7 @@ const SettingScreen:React.FC<Screen1Props> = ({navigation}) => {
                                 isRight={isRight}
                                 screen={screen}
                                 navigation={navigation} // Pass the navigation prop
+                                handleonPress={() => navigation.navigate(screen as string)}
                             />
                         ))
                     }

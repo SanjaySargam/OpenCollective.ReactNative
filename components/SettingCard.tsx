@@ -11,13 +11,14 @@ export interface SettingCard {
     icon: string,
     title: string,
     isRight: boolean,
-    screen: string
+    screen: string,
+    handleonPress:() => void;
 }
 type Screen1Props = {
     navigation: any
 }
 
-const SettingCard: React.FC<SettingCard & Screen1Props> = ({ icon, title, isRight, navigation, screen }) => {
+const SettingCard: React.FC<SettingCard & Screen1Props> = ({ icon, title, isRight, navigation, screen, handleonPress }) => {
     const { theme } = useTheme();
     const styles = StyleSheet.create({
         mainContainer: {
@@ -47,11 +48,8 @@ const SettingCard: React.FC<SettingCard & Screen1Props> = ({ icon, title, isRigh
         },
 
     })
-    const handleOnPress = async() => {
-        navigation.navigate(screen as string)        
-    }
     return (
-        <TouchableOpacity onPress={handleOnPress}>
+        <TouchableOpacity onPress={handleonPress}>
         <View style={styles.container}>
             <MaterialIcons name={icon} style={styles.icon}/>
             <Text style={styles.title}>{title}</Text>

@@ -127,7 +127,7 @@ const HomeScreen: React.FC<Screen1Props> = ({ navigation }) => {
                             <TouchableOpacity onPress={toggleTheme}>
                                 <Icon name={theme === lightTheme ? 'light-mode' : 'dark-mode'} style={styles.icon}/>
                             </TouchableOpacity>
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={() => navigation.navigate('Notification')}>
                                 <Icon name="notifications" style={styles.icon} />
                             </TouchableOpacity>
                             <TouchableOpacity onPress={() => navigation.navigate('Settings')} >
