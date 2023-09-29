@@ -73,6 +73,7 @@ const SettingScreen:React.FC<Screen1Props> = ({navigation}) => {
         try {
           await AsyncStorage.removeItem('accessToken');
           console.log('Logout')
+          navigation.navigate('Login')
         } catch (error) {
           console.error('Error clearing access token:', error);
         }
