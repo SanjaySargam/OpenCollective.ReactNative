@@ -1,6 +1,6 @@
 // src/ChatsScreen.tsx
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView,ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { fetchBalance } from './fetchAPI';
 import { useTheme } from './ThemeProvider'
 const OverviewScreen: React.FC = () => {
@@ -42,7 +42,7 @@ const OverviewScreen: React.FC = () => {
       borderRadius: 16,
       margin: 20,
       padding: 20,
-      elevation:2
+      elevation: 2
     },
     balance: {
       color: theme.gray
@@ -93,7 +93,7 @@ const OverviewScreen: React.FC = () => {
 
     fetchData();
   }, []);
-  
+
   const data = [
     {
       id: 1,
@@ -140,27 +140,35 @@ const OverviewScreen: React.FC = () => {
     <View style={styles.container}>
       <View style={styles.background} />
       <ScrollView style={styles.content}>
-      {type === 'INDIVIDUAL'
+        {type === 'INDIVIDUAL'
           ? data.slice(0, 2).map(({ balance, amount }) => (
-              <View key={balance} style={styles.card}>
-                <Text style={styles.balance}>{balance}</Text>
-                <Text style={styles.amount}>{amount}</Text>
-                <View style={styles.actionContainer}>
-                  <Text style={styles.action}>Contribute</Text>
-                  <Text style={styles.action}>Submit Expense</Text>
-                </View>
+            <View key={balance} style={styles.card}>
+              <Text style={styles.balance}>{balance}</Text>
+              <Text style={styles.amount}>{amount}</Text>
+              <View style={styles.actionContainer}>
+                <TouchableOpacity style={styles.action}>
+                  <Text style={{textAlign:'center',color:theme.backgroundColor}}>Contribute</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.action}>
+                  <Text style={{textAlign:'center',color:theme.backgroundColor}}>Submit Expense</Text>
+                </TouchableOpacity>
               </View>
-            ))
+            </View>
+          ))
           : data.map(({ balance, amount }) => (
-              <View key={balance} style={styles.card}>
-                <Text style={styles.balance}>{balance}</Text>
-                <Text style={styles.amount}>{amount}</Text>
-                <View style={styles.actionContainer}>
-                  <Text style={styles.action}>Contribute</Text>
-                  <Text style={styles.action}>Submit Expense</Text>
-                </View>
+            <View key={balance} style={styles.card}>
+              <Text style={styles.balance}>{balance}</Text>
+              <Text style={styles.amount}>{amount}</Text>
+              <View style={styles.actionContainer}>
+              <TouchableOpacity style={styles.action}>
+                <Text style={{textAlign:'center',color:theme.backgroundColor}}>Contribute</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.action}>
+                <Text style={{textAlign:'center',color:theme.backgroundColor}}>Submit Expense</Text>
+              </TouchableOpacity>
               </View>
-            ))}
+            </View>
+          ))}
 
       </ScrollView>
     </View>
