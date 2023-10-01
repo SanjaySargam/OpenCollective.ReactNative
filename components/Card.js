@@ -1,9 +1,8 @@
-import { StyleSheet, Text, View, Image } from 'react-native'
-import React from 'react'
-import { Transaction } from './fetchAPI';
-import { useTheme } from './ThemeProvider'
+import { StyleSheet, Text, View, Image } from 'react-native';
+import React from 'react';
+import { useTheme } from './ThemeProvider';
 
-const Card: React.FC<Transaction> = ({
+const Card = ({
     type,
     fromAccount: {
         name,
@@ -20,15 +19,15 @@ const Card: React.FC<Transaction> = ({
     description
 }) => {
     const { theme } = useTheme();
+
     const formattedDate = () => {
         const date = new Date(updatedAt);
-        const options: Intl.DateTimeFormatOptions = {
+        const options = {
             year: 'numeric',
             month: 'long',
             day: 'numeric',
         };
         return new Intl.DateTimeFormat('en-US', options).format(date);
-
     };
 
     const styles = StyleSheet.create({
@@ -54,16 +53,14 @@ const Card: React.FC<Transaction> = ({
             justifyContent: 'center',
         },
         amountContainer: {
-            // flex:1
             justifyContent: 'center',
             alignContent: 'flex-end'
         },
         money: {
-            color: type === 'CREDIT' ?'green':'red',
+            color: type === 'CREDIT' ? 'green' : 'red',
             fontWeight: 'bold'
         },
         credit: {
-            
             color: 'green',
             fontWeight: 'bold'
         },
@@ -93,9 +90,7 @@ const Card: React.FC<Transaction> = ({
             flexDirection: 'row',
             marginTop: 6
         }
-    })
-
-
+    });
 
     return (
         <View style={styles.container}>
@@ -111,16 +106,14 @@ const Card: React.FC<Transaction> = ({
             </View>
             <View style={styles.amountContainer}>
                 <View style={styles.amount}>
-                    <Text style={styles.credit}/>
+                    <Text style={styles.credit}></Text>
                     <Text style={styles.money}>{value}</Text>
                     <Text style={styles.currency}>{currency}</Text>
                 </View>
                 <Text style={styles.date}>{formattedDate()}</Text>
             </View>
         </View>
-    )
-}
-
-
+    );
+};
 
 export default Card;

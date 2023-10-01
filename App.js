@@ -12,7 +12,6 @@ import auth from '@react-native-firebase/auth';
 import { AuthContext } from './components/context';
 import { ThemeProvider } from './components/ThemeProvider';
 import HomeScreen from './components/HomeScreen';
-import OAuth from './components/OAuth';
 import { authorize, ServiceConfiguration } from 'react-native-app-auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SettingScreen from './components/SettingScreen';
