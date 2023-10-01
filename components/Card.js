@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { useTheme } from './ThemeProvider';
 
@@ -93,6 +93,7 @@ const Card = ({
     });
 
     return (
+        <TouchableOpacity>
         <View style={styles.container}>
             <View style={styles.profilePicContainer}>
                 <Image source={{ uri: imageUrl }} style={styles.profilePic} />
@@ -113,6 +114,7 @@ const Card = ({
                 <Text style={styles.date}>{formattedDate()}</Text>
             </View>
         </View>
+        </TouchableOpacity>
     );
 };
 
