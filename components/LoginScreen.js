@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StatusBar, Linking } from 'react-native';
 import { authorize, ServiceConfiguration } from 'react-native-app-auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { darkTheme, lightTheme } from './themes';
+import ThemeProvider, { useTheme } from './ThemeProvider';
 
 const config = {
   issuer: 'https://opencollective.com/oauth/authorize',
@@ -68,8 +70,14 @@ class LoginScreen extends Component {
     }
   };
 
+  createAccount = () => {
+    const url = 'https://opencollective.com/create-account?next=%2F'; // Replace with the URL you want to open
+    Linking.openURL(url);
+  };
+
 
   render() {
+    const {theme} = this.props
     return (
       <View
         style={{
@@ -80,6 +88,7 @@ class LoginScreen extends Component {
           flex: 1,
         }}
       >
+      <StatusBar backgroundColor={theme.mainTheme} barStyle="light-content" />
         <Image
           style={{ width: 150, height: 150, margin: 15 }}
           source={{
@@ -96,14 +105,19 @@ class LoginScreen extends Component {
             margin: 15,
           }}
         >
-          <Text style={{ color: 'black' }}>Login in to OpenCollective</Text>
+          <Text style={{ color: 'white' }}>Login in to OpenCollective</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={{ margin: 15 }}>
-          <Text style={{ color: 'black' }}>Create account</Text>
+        <View style={{alignContent:'center',justifyContent:'center',alignItems:'center',alignSelf:'center',padding:10}}>
+        <Text style={{color:'black'}}>Dont't have one ?</Text>
+        <TouchableOpacity onPress={this.createAccount}>
+          <Text style={{ color: theme.mainTheme, fontSize:20 }}>Create account</Text>
         </TouchableOpacity>
+        </View>
       </View>
     );
   }
 }
-
-export default LoginScreen;
+export default function ThemedLoginScreen(props) {
+  const { theme, toggleTheme } = useTheme();
+  return <LoginScreen {...props} theme={theme} toggleTheme={toggleTheme} />;
+}
