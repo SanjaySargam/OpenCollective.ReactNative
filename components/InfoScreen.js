@@ -10,6 +10,7 @@ import {
   ScrollView,
   ActivityIndicator,
 } from 'react-native';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import Feather from 'react-native-vector-icons/Feather';
 import { fetchProfileDetails, Profile } from './fetchAPI';
 import ThemeProvider, { useTheme } from './ThemeProvider';
@@ -209,31 +210,40 @@ class InfoScreen extends Component {
       }
     });
 
-    if (loading) {
-      return (
-        <View style={styles.container}>
-          <ActivityIndicator size="large" color="#000" />
-        </View>
-      );
-    }
+    // if (loading) {
+    //   return (
+    //     <View style={styles.container}>
+    //       <ActivityIndicator size="large" color="#000" />
+    //     </View>
+    //   );
+    // }
 
-    if (error) {
-      return (
-        <View style={styles.container}>
-          <Text>Error: {error}</Text>
-        </View>
-      );
-    }
+    // if (error) {
+    //   return (
+    //     <View style={styles.container}>
+    //       <Text>Error: {error}</Text>
+    //     </View>
+    //   );
+    // }
 
     return (
       <View style={styles.container}>
       <View style={styles.toolbar}>
+        <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
         <Feather name='chevron-left' style={styles.icon} />
+        </TouchableOpacity>
         <Text style={styles.title}>Edit Personal Info</Text>
       </View>
       <ScrollView style={styles.editContainer}>
         <View style={styles.profileContainer}>
+          {loading? 
+          <SkeletonPlaceholder>
+            <View style={styles.profile}/>
+          </SkeletonPlaceholder>
+          :
           <Image source={{ uri: profile?.imageUrl}} style={styles.profile} />
+          }
+         
           <View style={styles.changeProfileTextContainer}>
             <Text style={styles.changeProfileText}>Change Profile Picture</Text>
           </View>

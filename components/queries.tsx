@@ -105,6 +105,7 @@ query loggedInAccount {
     slug
     email
     imageUrl
+    repositoryUrl
   }
 }
 `;

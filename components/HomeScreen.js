@@ -11,6 +11,7 @@ import { fetchAccount } from './fetchAPI';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ACCOUNT } from './queries';
 import { darkTheme, lightTheme } from './themes';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder'
 
 class HomeScreen extends Component {
   constructor(props) {
@@ -43,6 +44,70 @@ class HomeScreen extends Component {
       });
     }
   };
+  renderSkeletonPlaceholder() {
+    const { theme, toggleTheme } = this.props;
+
+    const styles = StyleSheet.create({
+      container: {
+        backgroundColor: theme.mainTheme,
+        flex: 1
+    },
+    status: {
+        backgroundColor: theme.mainTheme
+    },
+    toolbar: {
+        margin: 20,
+        flexDirection: 'row',
+        alignItems: 'center',
+        alignSelf: 'center'
+    },
+    profilePic: {
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+    },
+    textContainer: {
+        flexDirection: 'column',
+        marginLeft: 5,
+    },
+    name: {
+        color: 'white',
+        fontFamily: 'Mr Peter Bold',
+        fontWeight:'bold'
+    },
+    welcomeText: {
+        color: 'black'
+    },
+    tabView: {
+        width: 'auto',
+        height: 50
+    },
+    navigationContainer: {
+        flex: 1,
+    },
+    icon: {
+        color: theme.backgroundColor,
+        fontSize: 30,
+        margin: 8
+    },
+    iconContainer: {
+        flexDirection: 'row'
+    }
+    });
+    return (
+      <SkeletonPlaceholder>
+        <View style={styles.toolbar}>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <View style={{ width: 40, height: 40, borderRadius: 20, marginRight: 10 }} />
+          <View>
+            <View style={{ width: 120, height: 20, borderRadius: 4 }} />
+            <View style={{ marginTop: 6, width: 80, height: 16, borderRadius: 4 }} />
+          </View>
+        </View>
+        </View>
+      </SkeletonPlaceholder>
+    );
+  }
 
   render() {
     const { theme, toggleTheme } = this.props;
@@ -96,7 +161,7 @@ class HomeScreen extends Component {
         flexDirection: 'row'
     }
     });
-
+    
     // if (loading) {
     //   return (
     //     <View style={styles.container}>
@@ -115,21 +180,36 @@ class HomeScreen extends Component {
 
     return (
       <View style={styles.container}>
-        {loading && 
-        <View style={styles.container}>
-          <ActivityIndicator size="large" color="#000" />
-        </View>
-        }
-        {loggedInAccount &&
+        {/* {loading && 
+          this.renderSkeletonPlaceholder()
+        } */}
+        {/* {loggedInAccount && */}
           <View style={styles.container}>
             <StatusBar backgroundColor={theme.mainTheme} barStyle="light-content" />
             <View style={styles.toolbar}>
-              <TouchableOpacity>
-                <Image source={{ uri: loggedInAccount.imageUrl }} style={styles.profilePic} />
-              </TouchableOpacity>
+              {!loggedInAccount?
+              <SkeletonPlaceholder>
+                <View style={{ width: 40, height: 40, borderRadius: 20, marginRight: 10 }} />
+              </SkeletonPlaceholder>
+            //   <TouchableOpacity>
+            //   {/* <Image source={{ uri: loggedInAccount.imageUrl }} style={styles.profilePic} /> */}
+            // </TouchableOpacity> 
+            :
+              <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+              <Image source={{ uri: loggedInAccount.imageUrl }} style={styles.profilePic} />
+            </TouchableOpacity>
+            }
+              
               <View style={styles.textContainer}>
                 <Text style={styles.welcomeText}>Welcome back,</Text>
+                {!loggedInAccount?
+                <SkeletonPlaceholder>
+                  <View style={{ marginTop: 6, width: 80, height: 16, borderRadius: 4 }} />
+                </SkeletonPlaceholder>
+                :
+
                 <Text style={styles.name}>{loggedInAccount.name}</Text>
+                }
               </View>
               <View style={styles.iconContainer}>
                 <TouchableOpacity onPress={toggleTheme}>
@@ -147,7 +227,7 @@ class HomeScreen extends Component {
               <TabNavigator />
             </View>
           </View>
-        }
+        {/* } */}
       </View>
     );
   }

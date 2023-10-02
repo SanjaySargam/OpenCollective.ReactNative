@@ -119,6 +119,7 @@ class App extends Component {
               <Stack.Screen name="Info" component={InfoScreen} />
               <Stack.Screen name="Notification" component={NotificationScreen} />
               <Stack.Screen name="Login" component={LoginScreen} />
+              <Stack.Screen name="Profile" component={ProfileScreen} />
             </Stack.Navigator>
           </NavigationContainer>
         </ApolloProvider>
