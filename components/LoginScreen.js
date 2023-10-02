@@ -48,7 +48,7 @@ class LoginScreen extends Component {
         console.log('data', data);
         this.setState({ accessToken: data.access_token });
         await AsyncStorage.setItem('accessToken', data.access_token);
-        this.props.navigation.navigate('Home')
+        this.props.navigation.replace('Home')
       } else {
         console.error('Request failed:', response.status);
       }

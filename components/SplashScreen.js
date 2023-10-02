@@ -22,9 +22,9 @@ class SplashScreen extends Component {
             const storedToken = await AsyncStorage.getItem('accessToken');
             if (storedToken) {
                 this.setState({ accessToken: true });
-                this.props.navigation.navigate('Home')
+                this.props.navigation.replace('Home')
             } else {
-                this.props.navigation.navigate('Login')
+                this.props.navigation.replace('Login')
             }
         } catch (error) {
             console.error('Error loading stored token:', error);
