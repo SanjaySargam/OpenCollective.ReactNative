@@ -1,10 +1,11 @@
-import { View, Text, StyleSheet, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { useTheme } from './ThemeProvider'
 import { ThemeProvider } from './ThemeProvider';
 import SettingCard from './SettingCard';
 import { logout } from 'react-native-app-auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Feather from 'react-native-vector-icons/Feather'
 
 const cards = [
     {
@@ -25,21 +26,21 @@ const cards = [
         index:3,
         icon: 'apps',
         title: 'Authorized Apps',
-        screen:'Info',
+        screen:'',
         isRight: true
     },
     {
         index:4,
         icon: 'local-activity',
         title: 'Activity Log',
-        screen:'Info',
+        screen:'',
         isRight: true
     },
     {
         index:5,
         icon: 'logout',
         title: 'Log out',
-        screen:'',
+        screen:'Logout',
         isRight: false
     }
 ]
@@ -85,8 +86,12 @@ const SettingScreen:React.FC<Screen1Props> = ({navigation}) => {
 
     return (
             <View style={styles.container}>
-                <View style={styles.toolbar}>
-                    <Text style={styles.title}>Settings</Text>
+                <View style={[styles.toolbar,{flexDirection:'row'}]}>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <Feather name='chevron-left' style={{fontSize: 40,
+            color: theme.backgroundColor,alignContent:'center',justifyContent:'center'}} />
+                </TouchableOpacity>
+                    <Text style={[styles.title,{marginLeft:12}]}>Settings</Text>
                 </View>
                 <ScrollView style={styles.cardContainer}>
                     {
@@ -99,10 +104,10 @@ const SettingScreen:React.FC<Screen1Props> = ({navigation}) => {
                                 screen={screen}
                                 navigation={navigation} // Pass the navigation prop
                                 handleonPress={() => {
-                                    if(screen){
+                                    if(screen && screen!=='Logout'){
                                         navigation.navigate(screen as string)
                                     }
-                                    else{
+                                    else if (screen === 'Logout'){
                                         handleLogout()
                                     }
                                 }}
