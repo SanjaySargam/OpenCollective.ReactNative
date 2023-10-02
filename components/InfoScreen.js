@@ -34,7 +34,6 @@ class InfoScreen extends Component {
     } catch (error) {
       this.setState({
         error: 'Error fetching profile details',
-        loading: false,
       });
     }
   }

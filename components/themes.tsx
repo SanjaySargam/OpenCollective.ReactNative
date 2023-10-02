@@ -12,8 +12,8 @@ const lightTheme = {
   
   const darkTheme = {
     mainTheme:'#97b7f3',
-    backgroundPrimary:'#3d3d3d',
-    backgroundColor: '#000000',
+    backgroundPrimary:'#1d232a',
+    backgroundColor: '#0c131d',
     textColor: '#FFFFFF',
     gray:'#eeeeee',
     borderColor:'#000000'

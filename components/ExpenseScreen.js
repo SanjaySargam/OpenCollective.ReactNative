@@ -32,7 +32,6 @@ class ExpenseScreen extends Component {
     } catch (error) {
       this.setState({
         error: 'Error fetching account data: ' + error.message,
-        loading: false,
       });
     }
   };

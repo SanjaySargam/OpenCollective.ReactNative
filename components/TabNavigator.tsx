@@ -18,7 +18,7 @@ const TabNavigator: React.FC = () => {
     <Tab.Navigator 
     screenOptions={{
         tabBarActiveTintColor: 'white', 
-        tabBarInactiveTintColor: 'gray',
+        tabBarInactiveTintColor: '#0c131d',
         tabBarStyle:{
             backgroundColor:theme.mainTheme,
             elevation:0,

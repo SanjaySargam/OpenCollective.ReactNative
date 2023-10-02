@@ -84,7 +84,7 @@ class LoginScreen extends Component {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: 'white',
+          backgroundColor: theme.backgroundPrimary,
           flex: 1,
         }}
       >
@@ -108,7 +108,7 @@ class LoginScreen extends Component {
           <Text style={{ color: 'white' }}>Login in to OpenCollective</Text>
         </TouchableOpacity>
         <View style={{alignContent:'center',justifyContent:'center',alignItems:'center',alignSelf:'center',padding:10}}>
-        <Text style={{color:'black'}}>Dont't have one ?</Text>
+        <Text style={{color:theme.textColor}}>Dont't have one ?</Text>
         <TouchableOpacity onPress={this.createAccount}>
           <Text style={{ color: theme.mainTheme, fontSize:20 }}>Create account</Text>
         </TouchableOpacity>

@@ -40,7 +40,6 @@ class HomeScreen extends Component {
       console.error('Error fetching data:', error);
       this.setState({
         error: error.message,
-        loading: false,
       });
     }
   };

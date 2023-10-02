@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import React from 'react'
 import { useTheme } from './ThemeProvider'
 import { ThemeProvider } from './ThemeProvider';
@@ -88,7 +88,7 @@ const SettingScreen:React.FC<Screen1Props> = ({navigation}) => {
                 <View style={styles.toolbar}>
                     <Text style={styles.title}>Settings</Text>
                 </View>
-                <View style={styles.cardContainer}>
+                <ScrollView style={styles.cardContainer}>
                     {
                         cards.map(({ icon, title, isRight, index, screen }) => (
                             <SettingCard
@@ -109,7 +109,7 @@ const SettingScreen:React.FC<Screen1Props> = ({navigation}) => {
                             />
                         ))
                     }
-                </View>
+                </ScrollView>
             </View>
     )
 }

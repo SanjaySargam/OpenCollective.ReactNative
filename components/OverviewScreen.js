@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   TouchableOpacity,
 } from 'react-native';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import { fetchBalance } from './fetchAPI';
 import { useTheme } from './ThemeProvider';
 
@@ -43,7 +44,6 @@ class OverviewScreen extends Component {
       console.error('Error fetching data:', error);
       this.setState({
         error: 'An error occurred while fetching data.',
-        loading: false,
       });
     }
   };
@@ -153,8 +153,32 @@ class OverviewScreen extends Component {
       <View style={styles.container}>
         <View style={styles.background} />
         <ScrollView style={styles.content}>
-
-          {type === 'INDIVIDUAL'
+          {loading && 
+          <View style={styles.container}>
+            <View style={styles.card}>
+            <SkeletonPlaceholder>
+            <View style={{width:200,height:20}}></View>
+            </SkeletonPlaceholder>
+            <SkeletonPlaceholder>
+            <View style={{width:150,height:30,marginTop:20}}></View>
+            </SkeletonPlaceholder>
+            <View style={styles.actionContainer}>
+              <TouchableOpacity style={styles.action}>
+                <Text style={{ textAlign: 'center', color: theme.backgroundColor }}>
+                  Contribute
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.action}>
+                <Text style={{ textAlign: 'center', color: theme.backgroundColor }}>
+                  Submit Expense
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          </View>
+          }
+          {stats && type && !loading &&
+          (type === 'INDIVIDUAL'
             ? data.slice(0, 2).map(({ balance, amount }) => (
                 <View key={balance} style={styles.card}>
                   <Text style={styles.balance}>{balance}</Text>
@@ -190,7 +214,8 @@ class OverviewScreen extends Component {
                     </TouchableOpacity>
                   </View>
                 </View>
-              ))}
+              )))
+              }
         </ScrollView>
       </View>
     );

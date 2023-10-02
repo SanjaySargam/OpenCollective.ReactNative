@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, ActivityIndicator } fr
 import { fetchAccount } from './fetchAPI';
 import { AuthContext } from './context';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import { useTheme } from './ThemeProvider';
 
 class ProfileScreen extends Component {
   constructor(props) {
@@ -31,11 +32,11 @@ class ProfileScreen extends Component {
       console.error('Error fetching data:', error);
       this.setState({
         error: error.message,
-        loading: false,
       });
     }
   };
   render() {
+    const {theme} = this.props
     const { loading, accountData, error } = this.state;
 
     const styles = StyleSheet.create({
@@ -43,7 +44,7 @@ class ProfileScreen extends Component {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#f0f0f0',
+        backgroundColor: theme.backgroundPrimary,
       },
       profilePicture: {
         width: 150,
@@ -55,7 +56,7 @@ class ProfileScreen extends Component {
         fontSize: 28,
         fontWeight: 'bold',
         marginBottom: 10,
-        color: '#333',
+        color: theme.textColor,
       },
       email: {
         fontSize: 18,
@@ -103,7 +104,7 @@ class ProfileScreen extends Component {
             :
             <Text style={styles.username}>{accountData.name}</Text>            
             }
-            <Text style={styles.email}>sargamsanjaykumar@gmail.com</Text>
+            {/* <Text style={styles.email}>sargamsanjaykumar@gmail.com</Text> */}
             <TouchableOpacity
               onPress={() => {
                 // Open the GitHub profile link
@@ -121,4 +122,7 @@ class ProfileScreen extends Component {
   }
 }
 
-export default ProfileScreen;
+export default function ThemedOverviewScreen(props) {
+  const { theme, toggleTheme } = useTheme();
+  return <ProfileScreen {...props} theme={theme} toggleTheme={toggleTheme} />;
+}
