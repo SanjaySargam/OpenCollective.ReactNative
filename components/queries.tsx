@@ -75,7 +75,7 @@ query loggedInAccount {
   loggedInAccount {
     name
     slug
-    transactions(limit: 10, type: CREDIT) {
+    transactions(limit: 20, type: CREDIT) {
       totalCount
       nodes {
         type
@@ -115,7 +115,7 @@ query loggedInAccount {
   loggedInAccount {
     name
     slug
-    transactions(limit: 10, type: DEBIT) {
+    transactions(limit: 20, type: DEBIT) {
       totalCount
       nodes {
         type

@@ -74,7 +74,7 @@ class TransactionScreen extends Component {
       <ScrollView style={styles.container}>
          {loading && 
         <View style={styles.container}>
-          <ActivityIndicator size="large" color="#000" />
+          <ActivityIndicator size="large" color={theme.textColor} />
         </View>
         }
         {!loading && totalTransactions===0 && 
