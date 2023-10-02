@@ -1,9 +1,16 @@
-import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
-import { fetchAccount } from './fetchAPI';
-import { AuthContext } from './context';
+import React, {Component} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
+import {fetchAccount} from './fetchAPI';
+import {AuthContext} from './context';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
-import { useTheme } from './ThemeProvider';
+import {useTheme} from './ThemeProvider';
 
 class ProfileScreen extends Component {
   constructor(props) {
@@ -17,13 +24,13 @@ class ProfileScreen extends Component {
   }
 
   componentDidMount() {
-    this.fetchLoggedInAccount()
+    this.fetchLoggedInAccount();
   }
 
   fetchLoggedInAccount = async () => {
     try {
       const response = await fetchAccount();
-      console.log("sanjay",response)
+      console.log('sanjay', response);
       this.setState({
         accountData: response.data.loggedInAccount,
         loading: false,
@@ -36,8 +43,8 @@ class ProfileScreen extends Component {
     }
   };
   render() {
-    const {theme} = this.props
-    const { loading, accountData, error } = this.state;
+    const {theme} = this.props;
+    const {loading, accountData, error} = this.state;
 
     const styles = StyleSheet.create({
       container: {
@@ -89,31 +96,33 @@ class ProfileScreen extends Component {
     return (
       <View style={styles.container}>
         {/* {accountData ? ( */}
-          <View style={styles.container}>
-            {loading?
+        <View style={styles.container}>
+          {loading ? (
             <SkeletonPlaceholder>
-              <View style={styles.profilePicture}/>
+              <View style={styles.profilePicture} />
             </SkeletonPlaceholder>
-            :
-            <Image source={{ uri: accountData.imageUrl }} style={styles.profilePicture} />
-            }
-            {loading?
+          ) : (
+            <Image
+              source={{uri: accountData.imageUrl}}
+              style={styles.profilePicture}
+            />
+          )}
+          {loading ? (
             <SkeletonPlaceholder>
-              <View style={styles.username}/>
+              <View style={styles.username} />
             </SkeletonPlaceholder>
-            :
-            <Text style={styles.username}>{accountData.name}</Text>            
-            }
-            {/* <Text style={styles.email}>sargamsanjaykumar@gmail.com</Text> */}
-            <TouchableOpacity
-              onPress={() => {
-                // Open the GitHub profile link
-                // You can use 'Linking' from 'react-native' to open the URL
-              }}
-            >
-              {/* <Text style={styles.githubProfile}>{accountData.repositoryUrl}</Text> */}
-            </TouchableOpacity>
-          </View>
+          ) : (
+            <Text style={styles.username}>{accountData.name}</Text>
+          )}
+          {/* <Text style={styles.email}>sargamsanjaykumar@gmail.com</Text> */}
+          <TouchableOpacity
+            onPress={() => {
+              // Open the GitHub profile link
+              // You can use 'Linking' from 'react-native' to open the URL
+            }}>
+            {/* <Text style={styles.githubProfile}>{accountData.repositoryUrl}</Text> */}
+          </TouchableOpacity>
+        </View>
         {/* ) : (
           <Text>Loading...</Text>
         )} */}
@@ -123,6 +132,6 @@ class ProfileScreen extends Component {
 }
 
 export default function ThemedOverviewScreen(props) {
-  const { theme, toggleTheme } = useTheme();
+  const {theme, toggleTheme} = useTheme();
   return <ProfileScreen {...props} theme={theme} toggleTheme={toggleTheme} />;
 }

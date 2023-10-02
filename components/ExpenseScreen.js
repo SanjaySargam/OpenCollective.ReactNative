@@ -1,8 +1,14 @@
-import React, { Component } from 'react';
-import { View, Text, ActivityIndicator, StyleSheet, ScrollView } from 'react-native';
-import { fetchExpenses, Transaction } from './fetchAPI';
+import React, {Component} from 'react';
+import {
+  View,
+  Text,
+  ActivityIndicator,
+  StyleSheet,
+  ScrollView,
+} from 'react-native';
+import {fetchExpenses, Transaction} from './fetchAPI';
 import Card from './Card';
-import { useTheme } from './ThemeProvider';
+import {useTheme} from './ThemeProvider';
 
 class ExpenseScreen extends Component {
   constructor(props) {
@@ -37,8 +43,8 @@ class ExpenseScreen extends Component {
   };
 
   render() {
-    const { loading, error, transactions } = this.state;
-    const { theme } = this.props;
+    const {loading, error, transactions} = this.state;
+    const {theme} = this.props;
 
     const styles = StyleSheet.create({
       container: {
@@ -65,11 +71,11 @@ class ExpenseScreen extends Component {
 
     return (
       <ScrollView style={styles.container}>
-        {loading && 
-        <View style={styles.container}>
-          <ActivityIndicator size="large" color="#000" />
-        </View>
-        }
+        {loading && (
+          <View style={styles.container}>
+            <ActivityIndicator size="large" color="#000" />
+          </View>
+        )}
         {transactions.map((transaction, index) => (
           <Card key={index} {...transaction} />
         ))}
@@ -79,6 +85,6 @@ class ExpenseScreen extends Component {
 }
 
 export default function ThemedExpenseScreen(props) {
-  const { theme, toggleTheme } = useTheme();
+  const {theme, toggleTheme} = useTheme();
   return <ExpenseScreen {...props} theme={theme} toggleTheme={toggleTheme} />;
 }

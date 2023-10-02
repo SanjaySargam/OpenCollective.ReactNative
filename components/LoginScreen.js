@@ -1,9 +1,16 @@
-import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity, StatusBar, Linking } from 'react-native';
-import { authorize, ServiceConfiguration } from 'react-native-app-auth';
+import React, {Component} from 'react';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  StatusBar,
+  Linking,
+} from 'react-native';
+import {authorize, ServiceConfiguration} from 'react-native-app-auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { darkTheme, lightTheme } from './themes';
-import ThemeProvider, { useTheme } from './ThemeProvider';
+import {darkTheme, lightTheme} from './themes';
+import ThemeProvider, {useTheme} from './ThemeProvider';
 
 const config = {
   issuer: 'https://opencollective.com/oauth/authorize',
@@ -28,7 +35,7 @@ class LoginScreen extends Component {
     };
   }
 
-  handlePostRequest = async (code) => {
+  handlePostRequest = async code => {
     const url = 'https://opencollective.com/oauth/token';
     const bodyParams = new URLSearchParams();
     bodyParams.append('grant_type', 'authorization_code');
@@ -48,9 +55,9 @@ class LoginScreen extends Component {
       if (response.ok) {
         const data = await response.json();
         console.log('data', data);
-        this.setState({ accessToken: data.access_token });
+        this.setState({accessToken: data.access_token});
         await AsyncStorage.setItem('accessToken', data.access_token);
-        this.props.navigation.replace('Home')
+        this.props.navigation.replace('Home');
       } else {
         console.error('Request failed:', response.status);
       }
@@ -75,9 +82,8 @@ class LoginScreen extends Component {
     Linking.openURL(url);
   };
 
-
   render() {
-    const {theme} = this.props
+    const {theme} = this.props;
     return (
       <View
         style={{
@@ -86,14 +92,12 @@ class LoginScreen extends Component {
           justifyContent: 'center',
           backgroundColor: theme.backgroundPrimary,
           flex: 1,
-        }}
-      >
-      <StatusBar backgroundColor={theme.mainTheme} barStyle="light-content" />
+        }}>
+        <StatusBar backgroundColor={theme.mainTheme} barStyle="light-content" />
         <Image
-          style={{ width: 100, height: 100, margin: 10 }}
+          style={{width: 100, height: 100, margin: 10}}
           source={{
-            uri:
-              'https://next-images.opencollective.com/_next/image?url=%2Fstatic%2Fimages%2Fopencollective-icon.png&w=48&q=75',
+            uri: 'https://next-images.opencollective.com/_next/image?url=%2Fstatic%2Fimages%2Fopencollective-icon.png&w=48&q=75',
           }}
         />
         <TouchableOpacity
@@ -103,21 +107,29 @@ class LoginScreen extends Component {
             padding: 10,
             borderRadius: 15,
             margin: 15,
-          }}
-        >
-          <Text style={{ color: 'white' }}>Login in to OpenCollective</Text>
+          }}>
+          <Text style={{color: 'white'}}>Login in to OpenCollective</Text>
         </TouchableOpacity>
-        <View style={{alignContent:'center',justifyContent:'center',alignItems:'center',alignSelf:'center',padding:10}}>
-        <Text style={{color:theme.textColor}}>Dont't have one ?</Text>
-        <TouchableOpacity onPress={this.createAccount}>
-          <Text style={{ color: theme.mainTheme, fontSize:20 }}>Create account</Text>
-        </TouchableOpacity>
+        <View
+          style={{
+            alignContent: 'center',
+            justifyContent: 'center',
+            alignItems: 'center',
+            alignSelf: 'center',
+            padding: 10,
+          }}>
+          <Text style={{color: theme.textColor}}>Dont't have one ?</Text>
+          <TouchableOpacity onPress={this.createAccount}>
+            <Text style={{color: theme.mainTheme, fontSize: 20}}>
+              Create account
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     );
   }
 }
 export default function ThemedLoginScreen(props) {
-  const { theme, toggleTheme } = useTheme();
+  const {theme, toggleTheme} = useTheme();
   return <LoginScreen {...props} theme={theme} toggleTheme={toggleTheme} />;
 }

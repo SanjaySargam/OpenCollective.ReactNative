@@ -1,9 +1,15 @@
-import React, { Component } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator, ScrollView } from 'react-native';
-import { fetchTransactions, ApiResponse, Transaction } from './fetchAPI';
+import React, {Component} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ActivityIndicator,
+  ScrollView,
+} from 'react-native';
+import {fetchTransactions, ApiResponse, Transaction} from './fetchAPI';
 import auth from '@react-native-firebase/auth';
 import Card from './Card';
-import { useTheme } from './ThemeProvider';
+import {useTheme} from './ThemeProvider';
 
 class TransactionScreen extends Component {
   constructor(props) {
@@ -42,8 +48,8 @@ class TransactionScreen extends Component {
   };
 
   render() {
-    const { theme } = this.props
-    const { loading, error, transactions } = this.state;
+    const {theme} = this.props;
+    const {loading, error, transactions} = this.state;
 
     const styles = StyleSheet.create({
       container: {
@@ -70,11 +76,11 @@ class TransactionScreen extends Component {
 
     return (
       <ScrollView style={styles.container}>
-         {loading && 
-        <View style={styles.container}>
-          <ActivityIndicator size="large" color="#000" />
-        </View>
-        }
+        {loading && (
+          <View style={styles.container}>
+            <ActivityIndicator size="large" color="#000" />
+          </View>
+        )}
         {transactions.map((transaction, index) => (
           <Card key={index} {...transaction} />
         ))}
@@ -84,7 +90,8 @@ class TransactionScreen extends Component {
 }
 
 export default function ThemedTransactionScreen(props) {
-  const { theme, toggleTheme } = useTheme();
-  return <TransactionScreen {...props} theme={theme} toggleTheme={toggleTheme} />;
+  const {theme, toggleTheme} = useTheme();
+  return (
+    <TransactionScreen {...props} theme={theme} toggleTheme={toggleTheme} />
+  );
 }
-

@@ -1,11 +1,17 @@
-import axios from "axios";
-import { GET_ACCOUNT, TRANSACTIONS, EXPENSES, ACCOUNT, BALANCE, PROFILE_DETAILS } from './queries'
+import axios from 'axios';
+import {
+  GET_ACCOUNT,
+  TRANSACTIONS,
+  EXPENSES,
+  ACCOUNT,
+  BALANCE,
+  PROFILE_DETAILS,
+} from './queries';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { } from './ExpenseScreen'
-import { useEffect } from "react";
+import {} from './ExpenseScreen';
+import {useEffect} from 'react';
 
-const BASE_URL = 'https://api.opencollective.com/graphql/v2'
-
+const BASE_URL = 'https://api.opencollective.com/graphql/v2';
 
 export interface ApiResponse {
   data: {
@@ -27,7 +33,7 @@ export interface Transaction {
     imageUrl: string;
   };
   toAccount: {
-    slug:string
+    slug: string;
   };
   amount: {
     value: number;
@@ -37,31 +43,31 @@ export interface Transaction {
   description: string;
 }
 export interface Profile {
-  imageUrl:string,
-  name:string,
-  legalName:string,
-  description:string,
-  slug:string,
-  currency:string,
+  imageUrl: string;
+  name: string;
+  legalName: string;
+  description: string;
+  slug: string;
+  currency: string;
   location: {
-    country:string,
+    country: string;
     structured: {
-      city:string,
-      zone:string,
-      address1:string,
-      address2:string,
-      postalCode:string
-    }
-  }
+      city: string;
+      zone: string;
+      address1: string;
+      address2: string;
+      postalCode: string;
+    };
+  };
 }
 
 export const fetchAccountData = async () => {
   try {
-    const slug = 'sanjay-sargam'
-    console.log("SANJAYD ", slug)
+    const slug = 'sanjay-sargam';
+    console.log('SANJAYD ', slug);
     const response = await axios.post(BASE_URL, {
       query: GET_ACCOUNT,
-      variables: { slug },
+      variables: {slug},
     });
 
     if (response.data && response.data.data) {
@@ -76,18 +82,20 @@ export const fetchAccountData = async () => {
 
 export const fetchTransactions = async () => {
   try {
-    const token = await AsyncStorage.getItem('accessToken')
-    const response = await axios.post(BASE_URL, {
-      query: TRANSACTIONS,
-    },
+    const token = await AsyncStorage.getItem('accessToken');
+    const response = await axios.post(
+      BASE_URL,
+      {
+        query: TRANSACTIONS,
+      },
       {
         headers: {
           Authorization: `Bearer ${token}`,
           'content-type': 'application/json',
         },
-      }
+      },
     );
-    console.log(response.data.data.loggedInAccount)
+    console.log(response.data.data.loggedInAccount);
     if (response.data) {
       return response.data.data.loggedInAccount;
     } else {
@@ -99,16 +107,18 @@ export const fetchTransactions = async () => {
 };
 export const fetchAccount = async () => {
   try {
-    const token = await AsyncStorage.getItem('accessToken')
-    const response = await axios.post(BASE_URL, {
-      query: ACCOUNT,
-    },
+    const token = await AsyncStorage.getItem('accessToken');
+    const response = await axios.post(
+      BASE_URL,
+      {
+        query: ACCOUNT,
+      },
       {
         headers: {
           Authorization: `Bearer ${token}`,
           'content-type': 'application/json',
         },
-      }
+      },
     );
 
     if (response.data) {
@@ -122,16 +132,18 @@ export const fetchAccount = async () => {
 };
 export const fetchExpenses = async () => {
   try {
-    const token = await AsyncStorage.getItem('accessToken')
-    const response = await axios.post(BASE_URL, {
-      query: EXPENSES,
-    },
+    const token = await AsyncStorage.getItem('accessToken');
+    const response = await axios.post(
+      BASE_URL,
+      {
+        query: EXPENSES,
+      },
       {
         headers: {
           Authorization: `Bearer ${token}`,
           'content-type': 'application/json',
         },
-      }
+      },
     );
 
     if (response.data) {
@@ -147,15 +159,17 @@ export const fetchExpenses = async () => {
 export const fetchBalance = async () => {
   try {
     const token = await AsyncStorage.getItem('accessToken');
-    const response = await axios.post(BASE_URL, {
-      query: BALANCE,
-    },
+    const response = await axios.post(
+      BASE_URL,
+      {
+        query: BALANCE,
+      },
       {
         headers: {
           Authorization: `Bearer ${token}`,
           'content-type': 'application/json',
         },
-      }
+      },
     );
     if (response.data) {
       return response.data.data.loggedInAccount;
@@ -165,20 +179,22 @@ export const fetchBalance = async () => {
   } catch (error) {
     throw new Error('Error fetching account data: ' + error);
   }
-}
+};
 
 export const fetchProfileDetails = async () => {
   try {
     const token = await AsyncStorage.getItem('accessToken');
-    const response = await axios.post(BASE_URL, {
-      query: PROFILE_DETAILS,
-    },
+    const response = await axios.post(
+      BASE_URL,
+      {
+        query: PROFILE_DETAILS,
+      },
       {
         headers: {
           Authorization: `Bearer ${token}`,
           'content-type': 'application/json',
         },
-      }
+      },
     );
     if (response.data) {
       return response.data.data.loggedInAccount;
@@ -188,4 +204,4 @@ export const fetchProfileDetails = async () => {
   } catch (error) {
     throw new Error('Error fetching account data: ' + error);
   }
-}
+};

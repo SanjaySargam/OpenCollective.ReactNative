@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import {gql} from '@apollo/client';
 
 export const GET_ACCOUNT = `
   query GetAccount($slug: String) {
@@ -17,57 +17,57 @@ export const GET_ACCOUNT = `
 `;
 
 export const GET_CONTRIBUTOR_AT = gql`
-query account($slug: String) {
-  account(slug: $slug) {
-    name
-    slug
-    memberOf(role: CONTRIBUTOR) {
-      totalCount
-      nodes {
-        account {
-          name
-          slug
+  query account($slug: String) {
+    account(slug: $slug) {
+      name
+      slug
+      memberOf(role: CONTRIBUTOR) {
+        totalCount
+        nodes {
+          account {
+            name
+            slug
+          }
         }
       }
     }
   }
-}
 `;
 
 export const BACKERS_OF_COLLECTIVE = gql`
-query account($slug: String) {
-  account(slug: $slug) {
-    name
-    slug
-    members(role: BACKER, limit: 100) {
-      totalCount
-      nodes {
-        account {
-          name
-          slug
+  query account($slug: String) {
+    account(slug: $slug) {
+      name
+      slug
+      members(role: BACKER, limit: 100) {
+        totalCount
+        nodes {
+          account {
+            name
+            slug
+          }
         }
       }
     }
   }
-}
 `;
 
 export const CONTRIBUTORS_OF_COLLECTIVE = gql`
-query account($slug: String) {
-  account(slug: $slug) {
-    name
-    slug
-    members(role: CONTRIBUTOR, limit: 100) {
-      totalCount
-      nodes {
-        account {
-          name
-          slug
+  query account($slug: String) {
+    account(slug: $slug) {
+      name
+      slug
+      members(role: CONTRIBUTOR, limit: 100) {
+        totalCount
+        nodes {
+          account {
+            name
+            slug
+          }
         }
       }
     }
   }
-}
 `;
 
 export const TRANSACTIONS = `
@@ -137,26 +137,23 @@ query loggedInAccount {
   }
 }`;
 
-
 export const ADMINS_OF_COLLECTIVE = gql`
-query account($slug: String) {
-  account(slug: $slug) {
-    name
-    slug
-    members(role: ADMIN, limit: 100) {
-      totalCount
-      nodes {
-        account {
-          name
-          slug
+  query account($slug: String) {
+    account(slug: $slug) {
+      name
+      slug
+      members(role: ADMIN, limit: 100) {
+        totalCount
+        nodes {
+          account {
+            name
+            slug
+          }
         }
       }
     }
   }
-}
 `;
-
-
 
 export const OWN_ACCOUNT = gql`
   query loggedInAccount {

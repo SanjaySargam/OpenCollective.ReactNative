@@ -1,12 +1,12 @@
-import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
+import {ApolloClient, InMemoryCache, createHttpLink} from '@apollo/client';
+import {setContext} from '@apollo/client/link/context';
 import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
 
 const httpLink = createHttpLink({
   uri: 'https://api.opencollective.com/graphql/v2/',
 });
 
-const authLink = setContext(async (_, { headers }) => {
+const authLink = setContext(async (_, {headers}) => {
   // Retrieve the authorization token from AsyncStorage
   const authorization = await AsyncStorage.getItem('accessToken');
   return {

@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { View, Text, StyleSheet, Switch } from 'react-native';
-import { useTheme } from './ThemeProvider';
+import React, {Component} from 'react';
+import {View, Text, StyleSheet, Switch} from 'react-native';
+import {useTheme} from './ThemeProvider';
 
 class NotificationScreen extends Component {
   constructor(props) {
@@ -12,11 +12,11 @@ class NotificationScreen extends Component {
   }
 
   toggleSwitch = () => {
-    this.setState((prevState) => ({ isEnabled: !prevState.isEnabled }));
+    this.setState(prevState => ({isEnabled: !prevState.isEnabled}));
   };
 
   render() {
-    const {theme} = this.props
+    const {theme} = this.props;
     const styles = StyleSheet.create({
       main: {
         backgroundColor: theme.backgroundPrimary,
@@ -57,14 +57,21 @@ class NotificationScreen extends Component {
       <View style={styles.main}>
         <View style={styles.container}>
           <View>
-            <Text style={styles.header}>Updates about the platform and Collectives you support</Text>
-            <Text style={styles.content}>Notifications about us, news we want to share with you related to our activities and the development of the platform.</Text>
+            <Text style={styles.header}>
+              Updates about the platform and Collectives you support
+            </Text>
+            <Text style={styles.content}>
+              Notifications about us, news we want to share with you related to
+              our activities and the development of the platform.
+            </Text>
           </View>
           <View style={styles.horizontalLine} />
           <View style={styles.notiContainer}>
-            <Text style={{ fontSize: 16, color: theme.textColor }}>Receive the Open Collective newsletter (monthly)</Text>
+            <Text style={{fontSize: 16, color: theme.textColor}}>
+              Receive the Open Collective newsletter (monthly)
+            </Text>
             <Switch
-              trackColor={{ false: 'grey', true: '#97b7f3' }}
+              trackColor={{false: 'grey', true: '#97b7f3'}}
               thumbColor={this.state.isEnabled ? '#3385ff' : 'white'}
               ios_backgroundColor="#3e3e3e"
               onValueChange={this.toggleSwitch}
@@ -78,6 +85,8 @@ class NotificationScreen extends Component {
 }
 
 export default function ThemedNotificationScreen(props) {
-  const { theme, toggleTheme } = useTheme();
-  return <NotificationScreen {...props} theme={theme} toggleTheme={toggleTheme} />;
+  const {theme, toggleTheme} = useTheme();
+  return (
+    <NotificationScreen {...props} theme={theme} toggleTheme={toggleTheme} />
+  );
 }

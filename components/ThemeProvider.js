@@ -1,5 +1,5 @@
-import React, { Component, createContext } from 'react';
-import { lightTheme, darkTheme } from './themes';
+import React, {Component, createContext} from 'react';
+import {lightTheme, darkTheme} from './themes';
 
 const ThemeContext = createContext();
 
@@ -12,17 +12,17 @@ export class ThemeProvider extends Component {
   }
 
   toggleTheme = () => {
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       theme: prevState.theme === lightTheme ? darkTheme : lightTheme,
     }));
   };
 
   render() {
-    const { children } = this.props;
-    const { theme } = this.state;
+    const {children} = this.props;
+    const {theme} = this.state;
 
     return (
-      <ThemeContext.Provider value={{ theme, toggleTheme: this.toggleTheme }}>
+      <ThemeContext.Provider value={{theme, toggleTheme: this.toggleTheme}}>
         {children}
       </ThemeContext.Provider>
     );

@@ -1,21 +1,21 @@
-import React, { Component } from 'react';
-import { AppRegistry } from 'react-native';
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import React, {Component} from 'react';
+import {AppRegistry} from 'react-native';
+import {ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 import HomePage from './components/HomePage';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import TransactionScreen from './components/TransactionScreen';
 import ExpenseScreen from './components/ExpenseScreen';
 import ProfileScreen from './components/ProfileScreen';
 import auth from '@react-native-firebase/auth';
-import { AuthContext } from './components/context';
-import { ThemeProvider } from './components/ThemeProvider';
+import {AuthContext} from './components/context';
+import {ThemeProvider} from './components/ThemeProvider';
 import HomeScreen from './components/HomeScreen';
-import { authorize, ServiceConfiguration } from 'react-native-app-auth';
+import {authorize, ServiceConfiguration} from 'react-native-app-auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SettingScreen from './components/SettingScreen';
-import { client } from './components/apolloClient';
+import {client} from './components/apolloClient';
 import InfoScreen from './components/InfoScreen';
 import NotificationScreen from './components/NotificationScreen';
 import LoginScreen from './components/LoginScreen';
@@ -47,7 +47,7 @@ class App extends Component {
     };
   }
 
-  handlePostRequest = async (code) => {
+  handlePostRequest = async code => {
     const url = 'https://opencollective.com/oauth/token';
     const bodyParams = new URLSearchParams();
     bodyParams.append('grant_type', 'authorization_code');
@@ -67,7 +67,7 @@ class App extends Component {
       if (response.ok) {
         const data = await response.json();
         console.log('data', data);
-        this.setState({ accessToken: data.access_token });
+        this.setState({accessToken: data.access_token});
         await AsyncStorage.setItem('accessToken', data.access_token);
       } else {
         console.error('Request failed:', response.status);
@@ -112,12 +112,17 @@ class App extends Component {
       <ThemeProvider>
         <ApolloProvider client={client}>
           <NavigationContainer>
-            <Stack.Navigator initialRouteName="Splash" screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Splash" component={SplashScreen} />
+            <Stack.Navigator
+              initialRouteName="Splash"
+              screenOptions={{headerShown: false}}>
+              <Stack.Screen name="Splash" component={SplashScreen} />
               <Stack.Screen name="Home" component={HomeScreen} />
               <Stack.Screen name="Settings" component={SettingScreen} />
               <Stack.Screen name="Info" component={InfoScreen} />
-              <Stack.Screen name="Notification" component={NotificationScreen} />
+              <Stack.Screen
+                name="Notification"
+                component={NotificationScreen}
+              />
               <Stack.Screen name="Login" component={LoginScreen} />
               <Stack.Screen name="Profile" component={ProfileScreen} />
             </Stack.Navigator>
