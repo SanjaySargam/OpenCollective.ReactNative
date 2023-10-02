@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet, StatusBar } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import ThemeProvider, { useTheme } from './ThemeProvider';
+
+
 class SplashScreen extends Component {
     constructor(props) {
         super(props);
@@ -31,9 +34,24 @@ class SplashScreen extends Component {
         }
     };
     render() {
+        const {theme} = this.props;
         return (
-            <View style={styles.container}>
-                {/* <Image source={require('./assets/splash.png')} style={styles.image} /> */}
+        <View
+            style={{
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: theme.backgroundPrimary,
+            flex: 1,
+            }}>            
+            <StatusBar backgroundColor='#97b7f3' barStyle="light-content" />
+            <Image
+            style={{ width: 100, height: 100, margin: 10 }}
+            source={{
+                uri:
+                'https://next-images.opencollective.com/_next/image?url=%2Fstatic%2Fimages%2Fopencollective-icon.png&w=48&q=75',
+            }}
+            />
             </View>
         );
     }
@@ -52,4 +70,7 @@ const styles = StyleSheet.create({
     },
 });
 
-export default SplashScreen;
+export default function ThemedSplashScreen(props) {
+    const { theme, toggleTheme } = useTheme();
+    return <SplashScreen {...props} theme={theme} toggleTheme={toggleTheme} />;
+  }

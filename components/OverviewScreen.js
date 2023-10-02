@@ -157,10 +157,30 @@ class OverviewScreen extends Component {
           <View style={styles.container}>
             <View style={styles.card}>
             <SkeletonPlaceholder>
-            <View style={{width:200,height:20}}></View>
+            <View style={{width:200,height:20,marginLeft:10}}></View>
             </SkeletonPlaceholder>
             <SkeletonPlaceholder>
-            <View style={{width:150,height:30,marginTop:20}}></View>
+            <View style={{width:150,height:30,marginTop:20,marginLeft:10}}></View>
+            </SkeletonPlaceholder>
+            <View style={styles.actionContainer}>
+              <TouchableOpacity style={styles.action}>
+                <Text style={{ textAlign: 'center', color: theme.backgroundColor }}>
+                  Contribute
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.action}>
+                <Text style={{ textAlign: 'center', color: theme.backgroundColor }}>
+                  Submit Expense
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+            <View style={styles.card}>
+            <SkeletonPlaceholder>
+            <View style={{width:200,height:20,marginLeft:10}}></View>
+            </SkeletonPlaceholder>
+            <SkeletonPlaceholder>
+            <View style={{width:150,height:30,marginTop:20,marginLeft:10}}></View>
             </SkeletonPlaceholder>
             <View style={styles.actionContainer}>
               <TouchableOpacity style={styles.action}>

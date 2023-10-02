@@ -37,7 +37,6 @@ class TransactionScreen extends Component {
     } catch (error) {
       this.setState({
         error: 'Error fetching account data: ' + error.message,
-        loading: false,
       });
     }
   };
@@ -53,24 +52,29 @@ class TransactionScreen extends Component {
       },
     });
 
-    if (loading) {
-      return (
-        <View style={styles.container}>
-          <ActivityIndicator size="large" color="#000" />
-        </View>
-      );
-    }
+    // if (loading) {
+    //   return (
+    //     <View style={styles.container}>
+    //       <ActivityIndicator size="large" color="#000" />
+    //     </View>
+    //   );
+    // }
 
-    if (error) {
-      return (
-        <View style={styles.container}>
-          <Text>Error: {error}</Text>
-        </View>
-      );
-    }
+    // if (error) {
+    //   return (
+    //     <View style={styles.container}>
+    //       <Text>Error: {error}</Text>
+    //     </View>
+    //   );
+    // }
 
     return (
       <ScrollView style={styles.container}>
+         {loading && 
+        <View style={styles.container}>
+          <ActivityIndicator size="large" color="#000" />
+        </View>
+        }
         {transactions.map((transaction, index) => (
           <Card key={index} {...transaction} />
         ))}

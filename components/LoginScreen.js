@@ -90,7 +90,7 @@ class LoginScreen extends Component {
       >
       <StatusBar backgroundColor={theme.mainTheme} barStyle="light-content" />
         <Image
-          style={{ width: 150, height: 150, margin: 15 }}
+          style={{ width: 100, height: 100, margin: 10 }}
           source={{
             uri:
               'https://next-images.opencollective.com/_next/image?url=%2Fstatic%2Fimages%2Fopencollective-icon.png&w=48&q=75',
@@ -101,7 +101,7 @@ class LoginScreen extends Component {
           style={{
             backgroundColor: '#97b7f3',
             padding: 10,
-            borderRadius: 5,
+            borderRadius: 15,
             margin: 15,
           }}
         >
