@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
 import {
   StyleSheet,
@@ -6,19 +7,13 @@ import {
   Image,
   StatusBar,
   TouchableOpacity,
-  ActivityIndicator,
 } from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
 import TabNavigator from './TabNavigator';
-import {createDrawerNavigator} from '@react-navigation/drawer';
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/SimpleLineIcons';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import ThemeProvider, {useTheme} from './ThemeProvider';
+import {useTheme} from './ThemeProvider';
 import {fetchAccount} from './fetchAPI';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {ACCOUNT} from './queries';
-import {darkTheme, lightTheme} from './themes';
+import {darkTheme} from './themes';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
 class HomeScreen extends Component {
@@ -52,7 +47,7 @@ class HomeScreen extends Component {
     }
   };
   renderSkeletonPlaceholder() {
-    const {theme, toggleTheme} = this.props;
+    const {theme} = this.props;
 
     const styles = StyleSheet.create({
       container: {
@@ -106,7 +101,12 @@ class HomeScreen extends Component {
         <View style={styles.toolbar}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <View
-              style={{width: 40, height: 40, borderRadius: 20, marginRight: 10}}
+              style={{
+                width: 40,
+                height: 40,
+                borderRadius: 20,
+                marginRight: 10,
+              }}
             />
             <View>
               <View style={{width: 120, height: 20, borderRadius: 4}} />
@@ -123,7 +123,7 @@ class HomeScreen extends Component {
   render() {
     const {theme, toggleTheme} = this.props;
     const {navigation} = this.props;
-    const {loading, error, loggedInAccount} = this.state;
+    const {loggedInAccount} = this.state;
 
     const styles = StyleSheet.create({
       container: {
@@ -191,7 +191,7 @@ class HomeScreen extends Component {
 
     return (
       <View style={styles.container}>
-        {/* {loading && 
+        {/* {loading &&
           this.renderSkeletonPlaceholder()
         } */}
         {/* {loggedInAccount && */}

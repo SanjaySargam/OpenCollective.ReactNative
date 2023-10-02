@@ -1,12 +1,6 @@
 import React, {Component} from 'react';
-import {
-  View,
-  Text,
-  ActivityIndicator,
-  StyleSheet,
-  ScrollView,
-} from 'react-native';
-import {fetchExpenses, Transaction} from './fetchAPI';
+import {View, ActivityIndicator, StyleSheet, ScrollView} from 'react-native';
+import {fetchExpenses} from './fetchAPI';
 import Card from './Card';
 import {useTheme} from './ThemeProvider';
 
@@ -43,7 +37,7 @@ class ExpenseScreen extends Component {
   };
 
   render() {
-    const {loading, error, transactions} = this.state;
+    const {loading, transactions} = this.state;
     const {theme} = this.props;
 
     const styles = StyleSheet.create({

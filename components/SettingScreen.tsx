@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {
   View,
   Text,
@@ -7,9 +8,7 @@ import {
 } from 'react-native';
 import React from 'react';
 import {useTheme} from './ThemeProvider';
-import {ThemeProvider} from './ThemeProvider';
 import SettingCard from './SettingCard';
-import {logout} from 'react-native-app-auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Feather from 'react-native-vector-icons/Feather';
 

@@ -67,6 +67,7 @@ class NotificationScreen extends Component {
           </View>
           <View style={styles.horizontalLine} />
           <View style={styles.notiContainer}>
+            {/* eslint-disable-next-line react-native/no-inline-styles */}
             <Text style={{fontSize: 16, color: theme.textColor}}>
               Receive the Open Collective newsletter (monthly)
             </Text>

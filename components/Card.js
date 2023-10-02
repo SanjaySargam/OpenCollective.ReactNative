@@ -99,7 +99,7 @@ const Card = ({
         </View>
         <View style={styles.amountContainer}>
           <View style={styles.amount}>
-            <Text style={styles.credit}></Text>
+            <Text style={styles.credit} />
             <Text style={styles.money}>{value}</Text>
             <Text style={styles.currency}>{currency}</Text>
           </View>

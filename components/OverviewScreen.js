@@ -1,10 +1,10 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
-  ActivityIndicator,
   TouchableOpacity,
 } from 'react-native';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
@@ -50,7 +50,7 @@ class OverviewScreen extends Component {
 
   render() {
     const {theme} = this.props;
-    const {loading, error, stats, type} = this.state;
+    const {loading, stats, type} = this.state;
 
     const styles = StyleSheet.create({
       scrollViewContent: {
@@ -109,28 +109,28 @@ class OverviewScreen extends Component {
         id: 1,
         balance:
           type === 'INDIVIDUAL'
-            ? `TOTAL RECEIVED WITH EXPENSES`
-            : `TODAY'S BALANCE`,
+            ? 'TOTAL RECEIVED WITH EXPENSES'
+            : "TODAY'S BALANCE",
         amount: `${stats.balance.value.toFixed(2)} ${stats.balance.currency}`,
       },
       {
         id: 3,
         balance:
-          type === 'INDIVIDUAL' ? `TOTAL CONTRIBUTED` : `TOTAL DISBURSED`,
+          type === 'INDIVIDUAL' ? 'TOTAL CONTRIBUTED' : 'TOTAL DISBURSED',
         amount: `${stats.totalAmountSpent.value.toFixed(2)} ${
           stats.totalAmountSpent.currency
         }`,
       },
       {
         id: 2,
-        balance: `TOTAL RAISED`,
+        balance: 'TOTAL RAISED',
         amount: `${stats.totalNetAmountReceived.value.toFixed(2)} ${
           stats.totalNetAmountReceived.currency
         }`,
       },
       {
         id: 4,
-        balance: `ESTIMATED ANNUAL BUDGET`,
+        balance: 'ESTIMATED ANNUAL BUDGET',
         amount: `${stats.yearlyBudget.value.toFixed(2)} ${
           stats.yearlyBudget.currency
         }`,
@@ -161,7 +161,7 @@ class OverviewScreen extends Component {
             <View style={styles.container}>
               <View style={styles.card}>
                 <SkeletonPlaceholder>
-                  <View style={{width: 200, height: 20, marginLeft: 10}}></View>
+                  <View style={{width: 200, height: 20, marginLeft: 10}} />
                 </SkeletonPlaceholder>
                 <SkeletonPlaceholder>
                   <View
@@ -170,7 +170,8 @@ class OverviewScreen extends Component {
                       height: 30,
                       marginTop: 20,
                       marginLeft: 10,
-                    }}></View>
+                    }}
+                  />
                 </SkeletonPlaceholder>
                 <View style={styles.actionContainer}>
                   <TouchableOpacity style={styles.action}>
@@ -195,7 +196,7 @@ class OverviewScreen extends Component {
               </View>
               <View style={styles.card}>
                 <SkeletonPlaceholder>
-                  <View style={{width: 200, height: 20, marginLeft: 10}}></View>
+                  <View style={{width: 200, height: 20, marginLeft: 10}} />
                 </SkeletonPlaceholder>
                 <SkeletonPlaceholder>
                   <View
@@ -204,7 +205,8 @@ class OverviewScreen extends Component {
                       height: 30,
                       marginTop: 20,
                       marginLeft: 10,
-                    }}></View>
+                    }}
+                  />
                 </SkeletonPlaceholder>
                 <View style={styles.actionContainer}>
                   <TouchableOpacity style={styles.action}>

@@ -8,8 +8,6 @@ import {
   PROFILE_DETAILS,
 } from './queries';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {} from './ExpenseScreen';
-import {useEffect} from 'react';
 
 const BASE_URL = 'https://api.opencollective.com/graphql/v2';
 

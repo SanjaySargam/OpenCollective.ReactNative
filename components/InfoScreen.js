@@ -1,19 +1,18 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
 import {
   View,
   Text,
   StyleSheet,
-  Button,
   TouchableOpacity,
   Image,
   TextInput,
   ScrollView,
-  ActivityIndicator,
 } from 'react-native';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import Feather from 'react-native-vector-icons/Feather';
-import {fetchProfileDetails, Profile} from './fetchAPI';
-import ThemeProvider, {useTheme} from './ThemeProvider';
+import {fetchProfileDetails} from './fetchAPI';
+import {useTheme} from './ThemeProvider';
 
 class InfoScreen extends Component {
   constructor(props) {
@@ -40,7 +39,7 @@ class InfoScreen extends Component {
 
   render() {
     const {theme} = this.props;
-    const {focusedInput, loading, error, profile} = this.state;
+    const {focusedInput, loading, profile} = this.state;
 
     const data = [
       {
@@ -65,7 +64,7 @@ class InfoScreen extends Component {
         placeholder: '',
         description:
           'Start with @ to reference an organization (e.g., @airbnb)',
-        value: ``,
+        value: '',
       },
       {
         id: 4,

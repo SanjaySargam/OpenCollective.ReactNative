@@ -1,13 +1,6 @@
 import React, {Component} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  ActivityIndicator,
-  ScrollView,
-} from 'react-native';
-import {fetchTransactions, ApiResponse, Transaction} from './fetchAPI';
-import auth from '@react-native-firebase/auth';
+import {View, StyleSheet, ActivityIndicator, ScrollView} from 'react-native';
+import {fetchTransactions} from './fetchAPI';
 import Card from './Card';
 import {useTheme} from './ThemeProvider';
 
@@ -49,7 +42,7 @@ class TransactionScreen extends Component {
 
   render() {
     const {theme} = this.props;
-    const {loading, error, transactions} = this.state;
+    const {loading, transactions} = this.state;
 
     const styles = StyleSheet.create({
       container: {

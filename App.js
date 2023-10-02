@@ -1,18 +1,11 @@
 import React, {Component} from 'react';
-import {AppRegistry} from 'react-native';
-import {ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client';
+import {ApolloProvider} from '@apollo/client';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import HomePage from './components/HomePage';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import TransactionScreen from './components/TransactionScreen';
-import ExpenseScreen from './components/ExpenseScreen';
 import ProfileScreen from './components/ProfileScreen';
-import auth from '@react-native-firebase/auth';
-import {AuthContext} from './components/context';
 import {ThemeProvider} from './components/ThemeProvider';
 import HomeScreen from './components/HomeScreen';
-import {authorize, ServiceConfiguration} from 'react-native-app-auth';
+import {authorize} from 'react-native-app-auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SettingScreen from './components/SettingScreen';
 import {client} from './components/apolloClient';
@@ -35,7 +28,6 @@ const config = {
   skipCodeExchange: true,
 };
 
-const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 class App extends Component {
@@ -86,26 +78,6 @@ class App extends Component {
       console.error('Authentication error:', error);
     }
   };
-
-  componentDidMount() {
-    // const { accessToken } = this.state;
-    // if (!accessToken) {
-    //   this.loadStoredToken();
-    // }
-  }
-
-  // loadStoredToken = async () => {
-  //   try {
-  //     const storedToken = await AsyncStorage.getItem('accessToken');
-  //     if (storedToken) {
-  //       this.setState({ accessToken: storedToken });
-  //     } else {
-  //       this.authenticate();
-  //     }
-  //   } catch (error) {
-  //     console.error('Error loading stored token:', error);
-  //   }
-  // };
 
   render() {
     return (

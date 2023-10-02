@@ -1,7 +1,8 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
-import {View, Image, StyleSheet, StatusBar} from 'react-native';
+import {View, Image, StatusBar} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import ThemeProvider, {useTheme} from './ThemeProvider';
+import {useTheme} from './ThemeProvider';
 
 class SplashScreen extends Component {
   constructor(props) {
@@ -54,19 +55,6 @@ class SplashScreen extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff', // Customize the background color if needed
-  },
-  image: {
-    width: 200, // Adjust the image dimensions as needed
-    height: 200,
-  },
-});
 
 export default function ThemedSplashScreen(props) {
   const {theme, toggleTheme} = useTheme();

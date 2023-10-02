@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
 import {
   View,
@@ -7,10 +8,9 @@ import {
   StatusBar,
   Linking,
 } from 'react-native';
-import {authorize, ServiceConfiguration} from 'react-native-app-auth';
+import {authorize} from 'react-native-app-auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {darkTheme, lightTheme} from './themes';
-import ThemeProvider, {useTheme} from './ThemeProvider';
+import {useTheme} from './ThemeProvider';
 
 const config = {
   issuer: 'https://opencollective.com/oauth/authorize',

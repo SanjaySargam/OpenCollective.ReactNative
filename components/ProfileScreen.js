@@ -1,14 +1,6 @@
 import React, {Component} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-  ActivityIndicator,
-} from 'react-native';
+import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {fetchAccount} from './fetchAPI';
-import {AuthContext} from './context';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import {useTheme} from './ThemeProvider';
 
@@ -44,7 +36,7 @@ class ProfileScreen extends Component {
   };
   render() {
     const {theme} = this.props;
-    const {loading, accountData, error} = this.state;
+    const {loading, accountData} = this.state;
 
     const styles = StyleSheet.create({
       container: {
