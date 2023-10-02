@@ -90,11 +90,8 @@ class LoginScreen extends Component {
       >
       <StatusBar backgroundColor={theme.mainTheme} barStyle="light-content" />
         <Image
-          style={{ width: 100, height: 100, margin: 10 }}
-          source={{
-            uri:
-              'https://next-images.opencollective.com/_next/image?url=%2Fstatic%2Fimages%2Fopencollective-icon.png&w=48&q=75',
-          }}
+          style={{ width: 200, height: 200, margin: 10 }}
+          source={require('../assets/app_logo.png')} // Replace with the path to your image
         />
         <TouchableOpacity
           onPress={() => this.authenticate()}
