@@ -15,6 +15,7 @@ class TransactionScreen extends Component {
       error: '',
       transactions: [],
       name: '',
+      totalTransactions:0
     };
   }
 
@@ -28,10 +29,11 @@ class TransactionScreen extends Component {
       // const slug = await getSlug(currentUser?.uid as string);
       // await storeSlug(slug as string);
       const accountData = await fetchTransactions();
-      console.log('account data', accountData);
+      console.log('account data', accountData.transactions.totalCount);
       this.setState({
         name: accountData.name,
         transactions: accountData.transactions.nodes,
+        totalTransactions: accountData.transactions.totalCount,
         loading: false,
       });
     } catch (error) {
@@ -43,7 +45,7 @@ class TransactionScreen extends Component {
 
   render() {
     const { theme } = this.props
-    const { loading, error, transactions } = this.state;
+    const { loading, error, transactions, totalTransactions } = this.state;
 
     const styles = StyleSheet.create({
       container: {
@@ -75,7 +77,12 @@ class TransactionScreen extends Component {
           <ActivityIndicator size="large" color="#000" />
         </View>
         }
-        {transactions.map((transaction, index) => (
+        {!loading && totalTransactions===0 && 
+        <View style={{justifyContent:'center',alignContent:'center',alignSelf:'center',alignItems:'center'}}>
+          <Text style={{color:theme.textColor,fontSize:20}}>No Transactions</Text>
+        </View>
+        }
+        {totalTransactions!==0 &&transactions.map((transaction, index) => (
           <Card key={index} {...transaction} />
         ))}
       </ScrollView>

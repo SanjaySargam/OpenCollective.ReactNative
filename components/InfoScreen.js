@@ -31,6 +31,7 @@ class InfoScreen extends Component {
     try {
       const profile = await fetchProfileDetails();
       this.setState({ profile, loading: false });
+      console.log("profile details",profile)
     } catch (error) {
       this.setState({
         error: 'Error fetching profile details',
@@ -48,14 +49,14 @@ class InfoScreen extends Component {
         title: 'Display Name',
         placeholder: '',
         description: 'Display names are public and used wherever this profile appears publicly, like contributions, comments on updates, public info on expenses, etc.',
-        value: `${profile?.name}`
+        value: profile?.name? `${profile?.name}` : ''
       },
       {
         id: 2,
         title: 'Legal Name (optional)',
         placeholder: 'e.g., Maria Garcia',
         description: 'Legal names are private and used in receipts, tax forms, payment details on expenses, and other non-public contexts. Legal names are only visible to admins.',
-        value:`${profile?.legalName}`
+        value: profile?.legalName? `${profile?.legalName}`: ''
       },
       {
         id: 3,
@@ -69,7 +70,7 @@ class InfoScreen extends Component {
         title: 'Short description',
         placeholder: '',
         description: '',
-        value:`${profile?.description}`
+        value:profile?.description?`${profile?.description}`:''
       },
       {
         id: 5,
@@ -82,49 +83,49 @@ class InfoScreen extends Component {
         id: 6,
         title: 'Currency',
         placeholder: '',
-        value:`${profile?.currency}`
+        value:profile?.currency?`${profile?.currency}`:''
       },
       {
         id: 7,
         title: 'Location',
         placeholder: '',
         description: 'Choose country',
-        value:`${profile?.location.country}`
+        value:profile?.location && profile?.location.country?`${profile?.location.country}`:''
       },
       {
         id: 8,
         title: 'Address',
         placeholder: '',
         description: '',
-        value:`${profile?.location.structured.address1}`
+        value:profile?.location && profile?.location.structured && profile?.location.structured.address1?`${profile?.location.structured.address1}`:''
       },
       {
         id: 9,
         title: 'Apartment, suite, etc. (optional)',
         placeholder: '',
         description: '',
-        value:`${profile?.location.structured.address2}`
+        value:profile?.location && profile?.location.structured && profile?.location.structured.address2?`${profile?.location.structured.address2}`:''
       },
       {
         id: 10,
         title: 'City',
         placeholder: '',
         description: '',
-        value:`${profile?.location.structured.city}`
+        value:profile?.location && profile?.location.structured && profile?.location.structured.city?`${profile?.location.structured.city}`:''
       },
       {
         id: 11,
         title: 'State',
         placeholder: '',
         description: '',
-        value:`${profile?.location.structured.zone}`
+        value:profile?.location && profile?.location.structured && profile?.location.structured.zone?`${profile?.location.structured.zone}`:''
       },
       {
         id: 12,
         title: 'PIN code',
         placeholder: '',
         description: '',
-        value:`${profile?.location.structured.postalCode}`
+        value:profile?.location && profile?.location.structured && profile?.location.structured.postalCode?`${profile?.location.structured.postalCode}`:''
       },
     ]
 
@@ -240,12 +241,14 @@ class InfoScreen extends Component {
             <View style={styles.profile}/>
           </SkeletonPlaceholder>
           :
+          <TouchableOpacity>
           <Image source={{ uri: profile?.imageUrl}} style={styles.profile} />
+          </TouchableOpacity>
           }
          
-          <View style={styles.changeProfileTextContainer}>
+          <TouchableOpacity style={styles.changeProfileTextContainer}>
             <Text style={styles.changeProfileText}>Change Profile Picture</Text>
-          </View>
+          </TouchableOpacity>
         </View>
         {data.map(({ title, placeholder, id, description, value }) => (
           <View style={styles.edit} key={id}>

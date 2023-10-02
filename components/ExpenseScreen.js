@@ -14,6 +14,7 @@ class ExpenseScreen extends Component {
       error: '',
       transactions: [],
       name: '',
+      totalContributions:0
     };
   }
 
@@ -28,6 +29,7 @@ class ExpenseScreen extends Component {
         name: accountData.name,
         transactions: accountData.transactions.nodes,
         loading: false,
+        totalContributions: accountData.transactions.totalCount
       });
     } catch (error) {
       this.setState({
@@ -37,7 +39,7 @@ class ExpenseScreen extends Component {
   };
 
   render() {
-    const { loading, error, transactions } = this.state;
+    const { loading, error, transactions, totalContributions } = this.state;
     const { theme } = this.props;
 
     const styles = StyleSheet.create({
@@ -70,7 +72,12 @@ class ExpenseScreen extends Component {
           <ActivityIndicator size="large" color="#000" />
         </View>
         }
-        {transactions.map((transaction, index) => (
+        {!loading && totalContributions===0 &&
+        <View style={{justifyContent:'center',alignContent:'center',alignSelf:'center',alignItems:'center'}}>
+        <Text style={{color:theme.textColor,fontSize:20}}>No Contributions</Text>
+        </View>
+        }
+        {transactions && transactions.map((transaction, index) => (
           <Card key={index} {...transaction} />
         ))}
       </ScrollView>
