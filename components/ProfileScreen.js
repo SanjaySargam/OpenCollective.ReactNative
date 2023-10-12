@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, ActivityIndicator, Button } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import Feather from 'react-native-vector-icons/Feather';
 import { fetchAccount } from './fetchAPI';
 import { AuthContext } from './context';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
@@ -46,6 +47,19 @@ class ProfileScreen extends Component {
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: theme.backgroundPrimary,
+      },
+      toolbar: {
+        flexDirection: 'row',
+        // alignItems: 'center',
+        // alignSelf: 'center',
+        padding: 10,
+        backgroundColor: '#97b7f3',
+        // position: 'absolute',
+        width: '100%',
+      },
+      icon: {
+        fontSize: 30,
+        color: theme.backgroundColor,
       },
       profilePicture: {
         width: 150,
@@ -94,6 +108,11 @@ class ProfileScreen extends Component {
 
     return (
       <View style={styles.container}>
+        <View style={styles.toolbar}>
+          <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+            <Feather name="chevron-left" style={styles.icon} />
+          </TouchableOpacity>
+        </View>
         {/* {accountData ? ( */}
         <View style={styles.container}>
           {loading ? (
@@ -120,14 +139,6 @@ class ProfileScreen extends Component {
               // You can use 'Linking' from 'react-native' to open the URL
             }}>
             {/* <Text style={styles.githubProfile}>{accountData.repositoryUrl}</Text> */}
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={() => {
-              this.props.navigation.goBack();
-            }}
-          >
-            <Text style={styles.goBack}>Go Back</Text>
           </TouchableOpacity>
         </View>
         {/* ) : (
