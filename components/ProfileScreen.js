@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, ActivityIndicator, Button } from 'react-native';
 import { fetchAccount } from './fetchAPI';
 import { AuthContext } from './context';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import { useTheme } from './ThemeProvider';
+// import ArrowBack from '../assets/components/arror_back.png'
 
 class ProfileScreen extends Component {
   constructor(props) {
@@ -68,6 +69,11 @@ class ProfileScreen extends Component {
         color: '#007BFF',
         textDecorationLine: 'underline',
       },
+      goBack: {
+        fontSize: 18,
+        marginTop: 10,
+        color: '#666',
+      },
     });
 
     // if (loading) {
@@ -89,31 +95,41 @@ class ProfileScreen extends Component {
     return (
       <View style={styles.container}>
         {/* {accountData ? ( */}
-          <View style={styles.container}>
-            {loading?
+        <View style={styles.container}>
+          {loading ? (
             <SkeletonPlaceholder>
-              <View style={styles.profilePicture}/>
+              <View style={styles.profilePicture} />
             </SkeletonPlaceholder>
-            :
-            <Image source={{ uri: accountData.imageUrl }} style={styles.profilePicture} />
-            }
-            {loading?
+          ) : (
+            <Image
+              source={{uri: accountData.imageUrl}}
+              style={styles.profilePicture}
+            />
+          )}
+          {loading ? (
             <SkeletonPlaceholder>
-              <View style={styles.username}/>
+              <View style={styles.username} />
             </SkeletonPlaceholder>
-            :
-            <Text style={styles.username}>{accountData.name}</Text>            
-            }
-            {/* <Text style={styles.email}>sargamsanjaykumar@gmail.com</Text> */}
-            <TouchableOpacity
-              onPress={() => {
-                // Open the GitHub profile link
-                // You can use 'Linking' from 'react-native' to open the URL
-              }}
-            >
-              {/* <Text style={styles.githubProfile}>{accountData.repositoryUrl}</Text> */}
-            </TouchableOpacity>
-          </View>
+          ) : (
+            <Text style={styles.username}>{accountData.name}</Text>
+          )}
+          {/* <Text style={styles.email}>sargamsanjaykumar@gmail.com</Text> */}
+          <TouchableOpacity
+            onPress={() => {
+              // Open the GitHub profile link
+              // You can use 'Linking' from 'react-native' to open the URL
+            }}>
+            {/* <Text style={styles.githubProfile}>{accountData.repositoryUrl}</Text> */}
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => {
+              this.props.navigation.goBack();
+            }}
+          >
+            <Text style={styles.goBack}>Go Back</Text>
+          </TouchableOpacity>
+        </View>
         {/* ) : (
           <Text>Loading...</Text>
         )} */}
