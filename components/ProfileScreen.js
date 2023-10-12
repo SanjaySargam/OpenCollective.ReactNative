@@ -62,7 +62,8 @@ class ProfileScreen extends Component {
         color: theme.backgroundColor,
         fontWeight: 'bold',
         fontSize: 24,
-        textAlign: 'center',
+        alignSelf: 'flex-start',
+        marginLeft: 10,
         flex: 1
       },
       profilePicture: {
