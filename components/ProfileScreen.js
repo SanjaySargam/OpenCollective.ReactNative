@@ -50,16 +50,20 @@ class ProfileScreen extends Component {
       },
       toolbar: {
         flexDirection: 'row',
-        // alignItems: 'center',
-        // alignSelf: 'center',
         padding: 10,
         backgroundColor: '#97b7f3',
-        // position: 'absolute',
         width: '100%',
       },
       icon: {
         fontSize: 30,
         color: theme.backgroundColor,
+      },
+      title: {
+        color: theme.backgroundColor,
+        fontWeight: 'bold',
+        fontSize: 24,
+        textAlign: 'center',
+        flex: 1
       },
       profilePicture: {
         width: 150,
@@ -82,12 +86,7 @@ class ProfileScreen extends Component {
         fontSize: 18,
         color: '#007BFF',
         textDecorationLine: 'underline',
-      },
-      goBack: {
-        fontSize: 18,
-        marginTop: 10,
-        color: '#666',
-      },
+      }
     });
 
     // if (loading) {
@@ -112,6 +111,7 @@ class ProfileScreen extends Component {
           <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
             <Feather name="chevron-left" style={styles.icon} />
           </TouchableOpacity>
+          <Text style={styles.title}>Profile Screen</Text>
         </View>
         {/* {accountData ? ( */}
         <View style={styles.container}>
