@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import Feather from 'react-native-vector-icons/Feather';
 import { fetchAccount } from './fetchAPI';
 import { AuthContext } from './context';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import { useTheme } from './ThemeProvider';
+// import ArrowBack from '../assets/components/arror_back.png'
 
 class ProfileScreen extends Component {
   constructor(props) {
@@ -46,6 +48,24 @@ class ProfileScreen extends Component {
         justifyContent: 'center',
         backgroundColor: theme.backgroundPrimary,
       },
+      toolbar: {
+        flexDirection: 'row',
+        padding: 10,
+        backgroundColor: '#97b7f3',
+        width: '100%',
+      },
+      icon: {
+        fontSize: 30,
+        color: theme.backgroundColor,
+      },
+      title: {
+        color: theme.backgroundColor,
+        fontWeight: 'bold',
+        fontSize: 24,
+        alignSelf: 'flex-start',
+        marginLeft: 10,
+        flex: 1
+      },
       profilePicture: {
         width: 150,
         height: 150,
@@ -67,7 +87,7 @@ class ProfileScreen extends Component {
         fontSize: 18,
         color: '#007BFF',
         textDecorationLine: 'underline',
-      },
+      }
     });
 
     // if (loading) {
@@ -88,32 +108,40 @@ class ProfileScreen extends Component {
 
     return (
       <View style={styles.container}>
+        <View style={styles.toolbar}>
+          <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
+            <Feather name="chevron-left" style={styles.icon} />
+          </TouchableOpacity>
+          <Text style={styles.title}>Profile Screen</Text>
+        </View>
         {/* {accountData ? ( */}
-          <View style={styles.container}>
-            {loading?
+        <View style={styles.container}>
+          {loading ? (
             <SkeletonPlaceholder>
-              <View style={styles.profilePicture}/>
+              <View style={styles.profilePicture} />
             </SkeletonPlaceholder>
-            :
-            <Image source={{ uri: accountData.imageUrl }} style={styles.profilePicture} />
-            }
-            {loading?
+          ) : (
+            <Image
+              source={{uri: accountData.imageUrl}}
+              style={styles.profilePicture}
+            />
+          )}
+          {loading ? (
             <SkeletonPlaceholder>
-              <View style={styles.username}/>
+              <View style={styles.username} />
             </SkeletonPlaceholder>
-            :
-            <Text style={styles.username}>{accountData.name}</Text>            
-            }
-            {/* <Text style={styles.email}>sargamsanjaykumar@gmail.com</Text> */}
-            <TouchableOpacity
-              onPress={() => {
-                // Open the GitHub profile link
-                // You can use 'Linking' from 'react-native' to open the URL
-              }}
-            >
-              {/* <Text style={styles.githubProfile}>{accountData.repositoryUrl}</Text> */}
-            </TouchableOpacity>
-          </View>
+          ) : (
+            <Text style={styles.username}>{accountData.name}</Text>
+          )}
+          {/* <Text style={styles.email}>sargamsanjaykumar@gmail.com</Text> */}
+          <TouchableOpacity
+            onPress={() => {
+              // Open the GitHub profile link
+              // You can use 'Linking' from 'react-native' to open the URL
+            }}>
+            {/* <Text style={styles.githubProfile}>{accountData.repositoryUrl}</Text> */}
+          </TouchableOpacity>
+        </View>
         {/* ) : (
           <Text>Loading...</Text>
         )} */}
